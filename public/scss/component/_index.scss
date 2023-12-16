@@ -1,0 +1,60 @@
+@use 'mixin';
+
+
+.index-slide {
+    z-index: -1000;
+    @include mixin.bgcolor1();
+
+    overflow: hidden; // Prevents any overflow outside this container
+    position: relative;
+
+    // Ensures that this container doesn't exceed the width of the page
+    .marquee {
+        height: 50px;
+        display: flex;
+
+
+        .marquee-content {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 12px;
+
+            .content-block {
+                display: flex;
+                align-items: center;
+                white-space: nowrap;
+
+                a {
+                    @include mixin.fontc1();
+                }
+            }
+        }
+
+    }
+
+}
+
+// promo
+.promo-section {
+    align-items: center;
+
+    a {
+        @include mixin.fontc3();
+
+    }
+}
+
+.btn-promo {
+    .btn-filter {
+        @include mixin.btn();
+    }
+
+}
+
+.ach {
+    background-color: #f8f6f2;
+}
+
+.fsale {
+    @include mixin.bgcolor1();
+}

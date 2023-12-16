@@ -1,0 +1,32 @@
+// @use 'mixin';
+
+// .card-header {
+//     background: #fff;
+
+//     a {
+//         font-size: 1.25rem; // Adjust the font size as needed
+//         color: $dark; // Use a variable for color or replace with a hex value
+
+//         &:hover {
+//             color: $dark; // Maintain the same color on hover
+//         }
+//     }
+// }
+
+// .card-body {
+//     .d-flex {
+//         border-bottom: 1px solid #eee; // Add a bottom border to each item
+//         padding-bottom: .5rem; // Space at the bottom of each item
+//         margin-bottom: .5rem; // Space between items
+
+//         &:last-child {
+//             border-bottom: 0; // No border for the last item
+//             padding-bottom: 0; // No padding for the last item
+//             margin-bottom: 0; // No margin for the last item
+//         }
+
+//         img {
+//             border-radius: .25rem; // Optional: rounded corners for images
+//         }
+//     }
+// }

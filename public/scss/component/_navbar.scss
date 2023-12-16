@@ -1,0 +1,217 @@
+@use 'mixin';
+
+.info-wrap {
+    height: 40px;
+    @include mixin.bgcolor2();
+
+    .info {
+        align-items: center;
+        align-self: center;
+
+        a {
+
+            display: flex;
+            gap: 12px;
+
+
+            @include mixin.fontc2();
+
+            p {
+                font-weight: 600;
+                font-size: 16px;
+                padding: 0px;
+                margin: 0px;
+            }
+        }
+    }
+}
+
+.navbar {
+    height: 80px;
+}
+
+.header {
+    z-index: 10000;
+}
+
+.hover-category>input {
+    visibility: hidden;
+}
+
+
+// kategori
+.category-sidebar {
+    visibility: hidden;
+    z-index: 100;
+    position: absolute;
+    box-sizing: border-box;
+    top: 0px;
+    left: 50px;
+
+    &:hover {
+        visibility: visible;
+    }
+
+    .category-content {
+        box-shadow: 6px 9px 100px -47px rgba(0, 0, 0, 0.35);
+        -webkit-box-shadow: 6px 9px 100px -47px rgba(0, 0, 0, 0.35);
+        -moz-box-shadow: 6px 9px 100px -47px rgba(0, 0, 0, 0.35);
+        height: max-content;
+        width: 1155px;
+        position: relative;
+        top: 60px;
+        padding: 20px;
+
+        background-color: #ffffff;
+
+        .container {
+
+
+            .category-list-container {
+                .category-list {
+                    list-style-type: none;
+                    margin: 0;
+                    padding: 0;
+                    width: 230px;
+
+                    .category-item {
+                        margin-bottom: 1rem;
+
+
+                        a {
+                            display: block;
+                            @include mixin.fontc2();
+                            padding: 7px 12px;
+
+                            &:hover,
+                            &.active {
+                                background: rgb(240, 240, 240); // Adjust color as per your design
+                                @include mixin.fontc3();
+                            }
+
+                            h5 {
+                                font-size: 18px;
+                                margin: 0px auto;
+                            }
+
+                            border-radius: 5px;
+                            -webkit-border-radius: 5px;
+                            -moz-border-radius: 5px;
+                            -ms-border-radius: 5px;
+                            -o-border-radius: 5px;
+                        }
+                    }
+                }
+
+                .product-display {
+                    width: 1000px;
+
+                    .product-wrap {
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 20px;
+
+                        .product-category {
+                            display: flex;
+                            align-items: center;
+
+
+                            a {
+                                @include mixin.fontc2();
+                                text-decoration: none;
+                                width: 250px;
+                                display: flex;
+                                align-items: center;
+                                gap: 20px;
+
+                                &:hover {
+                                    @include mixin.fontc3();
+                                }
+
+                                .product-wrap {
+
+
+                                    img {
+
+                                        width: 48px;
+                                        height: auto;
+                                        display: block;
+                                        margin-bottom: 0.5rem;
+                                    }
+
+                                    h6 {
+                                        text-align: start;
+                                        color: #333; // Adjust color as per your design
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
+
+}
+
+.cart-hover {
+    position: relative;
+    display: inline-block;
+    /* or block depending on your layout */
+
+    /* Hover styles for the icon/link */
+    &:hover .cart-summary {
+        display: block;
+        /* Show the summary */
+    }
+}
+
+.cart-summary {
+    display: none;
+    position: absolute;
+    right: 0;
+    z-index: 1000;
+    width: 350px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Ensure the summary doesn't disappear when you hover over it */
+.cart-summary:hover {
+    display: block;
+}
+
+.quantity-selector {
+    display: flex;
+    align-items: center;
+
+    .btn-quantity-change {
+        border-radius: 50%; // Makes the buttons circular
+        width: 1.5rem; // Fixed width
+        height: 1.5rem; // Fixed height
+        line-height: 1.5rem; // Centers the '+' and '-'
+        padding: 0; // Removes padding to center the '+' and '-'
+        margin: 0 0.25rem; // Adds some space between the buttons and input
+        font-size: 0.75rem; // Smaller font size for the '+' and '-'
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:focus {
+            box-shadow: none; // Removes the focus outline
+        }
+    }
+
+    .quantity-input {
+        width: 2rem; // Fixed width, slightly larger to display the number
+        height: 1.5rem; // Fixed height to match buttons
+        padding: 0; // No padding to keep the content centered
+        font-size: 0.75rem; // Smaller font size for the number
+        text-align: center;
+        border: 1px solid rgba(#198754, 0.5); // Bootstrap success color with reduced opacity
+        border-radius: 0.25rem; // Matches default Bootstrap border-radius
+        pointer-events: none; // Makes the input read-only for mouse events
+    }
+}

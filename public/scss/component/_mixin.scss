@@ -1,0 +1,58 @@
+@mixin animate {
+    transition: 0.3s ease-out;
+    -webkit-transition: 0.3s ease-out;
+    -moz-transition: 0.3s ease-out;
+    -ms-transition: 0.3s ease-out;
+    -o-transition: 0.3s ease-out;
+    transform: scale(1.03);
+    -webkit-transform: scale(1.03);
+    -moz-transform: scale(1.03);
+    -ms-transform: scale(1.03);
+    -o-transform: scale(1.03);
+}
+
+//  warna
+@mixin bgcolor1 {
+    background-color: #637148;
+}
+
+@mixin bgcolor2 {
+    background-color: #6dbf67;
+}
+@mixin bgcolor3 {
+    background-color: rgb(184, 184, 184);
+}
+
+@mixin fontc1 {
+    color: #fdf5e6;
+    text-decoration: none;
+}
+
+@mixin fontc2 {
+    color: #4f4f4f;
+    text-decoration: none;
+}
+@mixin fontc3 {
+    color: #6dbf67;
+    text-decoration: none;
+ font-size: 18px;
+}
+
+// button
+@mixin btn {
+    color: #4f4f4f;
+    background-color: #fdf5e6;
+    border:0.7px solid grey;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+}
+
+// flex
+@mixin flex{
+    display: flex;
+    align-items: center;
+    gap:20px;
+}
