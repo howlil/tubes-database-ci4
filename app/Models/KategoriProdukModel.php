@@ -11,13 +11,14 @@ class KategoriProdukModel extends Model
     protected $allowedFields = ['Nama'];
     protected $returnType = 'array';
     protected $useTimestamps = false;
-    public function getKategori($ID_Kategori = false){
-        
-        if($ID_Kategori == false){
-            return $this->findAll();
-        }
+  
 
-        return $this->where(['ID_Kategori'=>$ID_Kategori])->first();
+    public function getKategoriWithSubKategori()
+    {
+        return $this->db->table($this->table)
+                        ->select('kategori.ID_Kategori, kategori.Nama as KategoriNama, sub_kategori.Nama as SubKategoriNama')
+                        ->join('sub_kategori', 'sub_kategori.ID_Kategori = kategori.ID_Kategori', 'left')
+                        ->get()->getResultArray();
     }
 
 }

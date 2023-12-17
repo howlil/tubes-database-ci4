@@ -19,7 +19,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="nilai" class="form-label">Nilai Voucher</label>
-                    <input type="number" class="form-control" id="nilai" name="nilai" required>
+                    <input type="number" step="0.01" class="form-control" id="nilai" name="nilai" required>
                 </div>
                 <div class="mb-3">
                     <label for="jenis" class="form-label">Jenis Voucher</label>
@@ -40,21 +40,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($voucher as $v => $value) : ?>
+                    <?php foreach ($voucher as $v) : ?>
                     <tr>
+                        <td><?= htmlspecialchars($v['Voucher']); ?></td>
+                        <td><?= htmlspecialchars($v['Nilai']); ?></td>
+                        <td><?= htmlspecialchars($v['Jenis_Voucher']); ?></td>
                         <td>
-                            <?= $value['Voucher']; ?>
-                        </td>
-                        <td>
-                            <?= $value['Nilai']; ?>
-                        </td>
-                        <td>
-                            <?= $value['Jenis_Voucher']; ?>
-                        </td>
-
-                        <td>
-                            <a href="" class="btn btn-warning btn-sm">Edit</a> <!-- Tambahkan tombol edit -->
-                            <a href="" class="btn btn-danger btn-sm">Hapus</a> <!-- Tambahkan tombol hapus -->
+                            <a href="/hapus-voucher/<?= $v['Voucher']; ?>" class="btn btn-danger"><i
+                                    class="bi bi-trash"></i>
+                            </a>
                         </td>
                     </tr>
                     <?php endforeach; ?>

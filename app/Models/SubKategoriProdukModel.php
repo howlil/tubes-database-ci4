@@ -12,13 +12,5 @@ class SubKategoriProdukModel extends Model
     protected $returnType = 'array';
     protected $useTimestamps = false;
 
-    public function getSubKategori($ID_SubKategori = false){
-        
-        if($ID_SubKategori == false){
-            return $this->findAll();
-        }
-
-        return $this->where(['ID_SubKategorik'=>$ID_SubKategori])->first();
-    }
 
 }

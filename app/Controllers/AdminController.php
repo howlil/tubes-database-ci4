@@ -63,16 +63,61 @@ class AdminController extends BaseController
         $data['title']   = 'OttenCoffe | Edit Produk';
         return view('admin/editProduk', $data);
     }
+
+    //=================Payment=======================
     public function editPembayaran(): string
     {
-        $data['title']   = 'OttenCoffe | Edit Pembayaran';
+
+        $data = [
+            'title' =>  'OttenCoffe | Edit Pembayaran',
+            'pay' => $this->MetodePembayaranModel->getPay(),
+        ];
         return view('admin/editMetodePembayaran', $data);
     }
+    public function addPembayaran()
+    {
+        $data = [
+            'ID_Metode_Pembayaran' => $this->request->getPost('ID_Metode_Pembayaran'),
+            'Metode_Pembayaran' => $this->request->getPost('Nama_Metode_Pembayaran'),
+        ];
+        $this->MetodePembayaranModel->insertPay($data);
+        return redirect()->to('/edit-pembayaran');
+    }
+
+    public function hapusPembayaran($id)
+    {
+        $this->MetodePembayaranModel->deletePay($id);
+        return redirect()->to('/edit-pembayaran');
+    }
+    //=================end=======================
+
+    //=================Shiping=======================
+
     public function editPengiriman(): string
     {
-        $data['title']   = 'OttenCoffe | Edit Pengiriman';
+        $data = [
+            'title' =>  'OttenCoffe | Edit Pengiriman',
+            'ship' => $this->MetodePengirimanModel->getShip(),
+        ];
         return view('admin/editMetodePengiriman', $data);
     }
+
+    public function addPengiriman()
+    {
+        $data = [
+            'ID_Metode_Pengiriman' => $this->request->getPost('ID_Metode_Pengiriman'),
+            'Metode_Pengiriman' => $this->request->getPost('Nama_Metode_Pengiriman'),
+        ];
+        $this->MetodePengirimanModel->insertShip($data);
+        return redirect()->to('/edit-pengiriman');
+    }
+
+    public function hapusPengiriman($id)
+    {
+        $this->MetodePengirimanModel->deleteShip($id);
+        return redirect()->to('/edit-pengiriman');
+    }
+    //=================end=======================
 
     //=================voucher=======================
     public function Voucher()
@@ -86,21 +131,26 @@ class AdminController extends BaseController
 
     public function addVoucher()
     {
+        // Mendapatkan data dari form dan mengonversinya ke tipe yang sesuai
+        $voucher = $this->request->getPost('voucher');
+        $nilai = floatval($this->request->getPost('nilai')); // Konversi ke float
+        $jenisVoucher = $this->request->getPost('jenis');
+
+        // Menyiapkan array data untuk disimpan
         $data = [
-            'Voucher' => $this->request->getPost('voucher'),
-            'Nilai' => $this->request->getPost('nilai'),
-            'Jenis_Voucher' => $this->request->getPost('jenis')
+            'Voucher' => $voucher,
+            'Nilai' => $nilai, // Menggunakan nilai yang sudah dikonversi
+            'Jenis_Voucher' => $jenisVoucher
         ];
-
         $this->VoucherModel->insertVoucher($data);
-        return redirect()->to(base_url('/voucher'));    }
-
-    public function hapusVoucher($id)
-    {
-        $this->VoucherModel->delete($id);
-        return redirect()->to('/admin/editVoucher'); // URL daftar voucher
+        return redirect()->to(base_url('/voucher'));
     }
 
+    public function hapusVoucher($data)
+    {
+        $this->VoucherModel->deleteVoucher($data);
+        return redirect()->to(base_url('/voucher'));
+    }
     //=========================end voucher=========================
 
 
@@ -114,9 +164,16 @@ class AdminController extends BaseController
         $data['title']   = 'OttenCoffe | Edit Flash Sale';
         return view('admin/editFlashsale', $data);
     }
+
+    //=========================Kategori=========================
     public function editKategori(): string
     {
-        $data['title']   = 'OttenCoffe | Edit Kategori';
+        $data = [
+            'title' =>  'OttenCoffe | Edit Kategori',
+            'kategori' => $this->KategoriProdukModel->getKategoriWithSubKategori(),
+        ];
         return view('admin/editKategori', $data);
     }
+    //=========================end=========================
+
 }

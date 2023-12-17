@@ -21,4 +21,8 @@ class VoucherModel extends Model
     {
         return $this->db->table('kode_voucher')->insert($data);
     }
+    public function deleteVoucher($data)
+    {
+        return $this->where('Voucher', $data)->delete();
+    }
 }
