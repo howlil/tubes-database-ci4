@@ -14,11 +14,18 @@ $routes->get('/ketegori/dripcoffee', 'UserController::kategori');
 $routes->get('/keranjang', 'UserController::keranjang');
 $routes->get('/konfirmasi-pembayaran', 'UserController::konfirmasipembayaran');
 
-//admin
+//==============admin======================
 $routes->get('/dashboard', 'AdminController::index');
 $routes->get('/edit-produk', 'AdminController::editProduk');
 $routes->get('/edit-pembayaran', 'AdminController::editPembayaran');
 $routes->get('/edit-pengiriman', 'AdminController::editPengiriman');
-$routes->get('/edit-voucher', 'AdminController::editVoucher');
+
+//================voucher=====================
+$routes->get('/voucher', 'AdminController::Voucher');
+$routes->post('/addVoucher', 'AdminController::addVoucher');
+
+//================end voucher=====================
+
 $routes->get('/edit-diskon', 'AdminController::editDiskon');
 $routes->get('/edit-flash-sale', 'AdminController::editFlashSale');
+$routes->get('/edit-kategori', 'AdminController::editKategori');
