@@ -165,14 +165,74 @@ class AdminController extends BaseController
         return view('admin/editFlashsale', $data);
     }
 
+    
     //=========================Kategori=========================
-    public function editKategori(): string
+    public function editKategori()
     {
         $data = [
-            'title' =>  'OttenCoffe | Edit Kategori',
+            'title' => 'OttenCoffe | Edit Kategori',
             'kategori' => $this->KategoriProdukModel->getKategoriWithSubKategori(),
+            'allKategori' => $this->KategoriProdukModel->findAll(),
         ];
         return view('admin/editKategori', $data);
+    }
+
+    public function addKategori()
+    {
+        $kategoriNama = $this->request->getPost('kategoriNama');
+        $kategoriId = $this->request->getPost('kategoriId');
+        $this->KategoriProdukModel->insert([
+            'ID_Kategori' => $kategoriId, 
+            'Nama' => $kategoriNama
+        ]);
+
+        return redirect()->to('/edit-kategori');
+    }
+
+    public function addSubKategori()
+    {
+        $subkategoriId = $this->request->getPost('subkategoriId');
+        $kategoriId = $this->request->getPost('kategoriId');
+        $subkategoriNama = $this->request->getPost('subkategoriNama');
+
+        $this->KategoriProdukModel->insert([
+            'ID_Kategori' => $kategoriId,
+            'ID_SubKategori' => $subkategoriId,
+            'Nama' => $subkategoriNama,
+
+        ]);
+
+
+        return redirect()->to('/edit-kategori');
+    }
+
+
+    public function hapusKategori($id)
+    {
+        if (empty($id) || !is_numeric($id)) {
+            // Handling invalid or empty $id
+            // For example, setting a flashdata message and redirecting to an error page or the listing page
+            session()->setFlashdata('error', 'Invalid Category ID');
+            return redirect()->to('/edit-kategori');
+        }
+
+        $this->KategoriProdukModel->where('ID_Kategori', $id)->delete();
+        session()->setFlashdata('success', 'Category successfully deleted');
+        return redirect()->to('/edit-kategori');
+    }
+
+    public function hapusSubKategori($id)
+    {
+        if (empty($id) || !is_numeric($id)) {
+            // Handling invalid or empty $id
+            // For example, setting a flashdata message and redirecting to an error page or the listing page
+            session()->setFlashdata('error', 'Invalid Subcategory ID');
+            return redirect()->to('/edit-kategori');
+        }
+
+        $this->SubKategoriProdukModel->where('ID_SubKategori', $id)->delete();
+        session()->setFlashdata('success', 'Subcategory successfully deleted');
+        return redirect()->to('/edit-kategori');
     }
     //=========================end=========================
 

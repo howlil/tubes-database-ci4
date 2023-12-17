@@ -42,4 +42,9 @@ $routes->get('/edit-flash-sale', 'AdminController::editFlashSale');
 
 //==============keatgori======================
 $routes->get('/edit-kategori', 'AdminController::editKategori');
+$routes->post('/add-kategori', 'AdminController::addKategori');
+$routes->post('/add-subkategori', 'AdminController::addSubKategori');
+$routes->get('/hapus-kategori/(:segment)', 'AdminController::hapusKategori/$1');
+$routes->get('/hapus-subkategori/(:segment)', 'AdminController::hapusSubKategori/$1');
+
 //==============end======================
