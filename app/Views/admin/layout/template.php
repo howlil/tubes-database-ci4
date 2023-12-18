@@ -24,7 +24,9 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="admin/css/sb-admin-2.css" rel="stylesheet">
+    <!-- <link href="admin/css/sb-admin-2.css" rel="stylesheet"> -->
+    <link href="admin/scss/sb-admin-2.css" rel="stylesheet">
+
 </head>
 
 <body id="page-top">
@@ -50,6 +52,46 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
+
+
+
+    <!-- <script>
+    document.getElementById('sidebarToggle').addEventListener('click', function() {
+        document.getElementById('accordionSidebar').classList.toggle('toggled');
+    });
+    </script> -->
+    <script>
+    document.getElementById('sidebarToggle').addEventListener('click', function() {
+        var sidebar = document.getElementById('accordionSidebar');
+        sidebar.classList.toggle('toggled');
+
+        if (sidebar.classList.contains('toggled')) {
+            sidebar.style.width = '80px';
+            sidebar.querySelectorAll('.nav-link span').forEach(function(span) {
+                span.style.display = 'none';
+            });
+        } else {
+            sidebar.style.width = ''; // Kembali ke lebar awal
+            sidebar.querySelectorAll('.nav-link span').forEach(function(span) {
+                span.style.display = '';
+            });
+        }
+    });
+    </script>
+
+
+    <script>
+    document.getElementById('userDropdown').addEventListener('mouseenter', function() {
+        this.classList.add('show');
+        this.querySelector('.dropdown-menu').classList.add('show');
+    });
+
+    document.getElementById('userDropdown').addEventListener('mouseleave', function() {
+        this.classList.remove('show');
+        this.querySelector('.dropdown-menu').classList.remove('show');
+    });
+    </script>
+
 
 </body>
 

@@ -6,7 +6,6 @@
 <div id="content-wrapper" class="d-flex flex-column">
     <?= $this->include('/admin/layout/navbar') ?>
 
-
     <div class="container-fluid">
 
         <div class="container mt-5">

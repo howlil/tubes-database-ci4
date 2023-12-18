@@ -8,17 +8,20 @@ class DiskonModel extends Model
 {
     protected $table = 'diskon';
     protected $primaryKey = 'Kode_Diskon';
-    protected $allowedFields = ['Nilai', 'Tanggal_Mulai', 'Tanggal_Berakhir'];
+    protected $allowedFields = ['Kode_Diskon','Nilai', 'Tanggal_Mulai', 'Tanggal_Berakhir'];
     protected $returnType = 'array';
     protected $useTimestamps = true;
 
-    public function getDiskon($Kode_Diskon = false)
+    public function getDiskon()
     {
-
-        if ($Kode_Diskon == false) {
-            return $this->findAll();
-        }
-
-        return $this->where(['Kode_Diskon' => $Kode_Diskon])->first();
+        return $this->db->table('diskon')->get()->getResultArray();
+    }
+    public function insertDiskon($data)
+    {
+        return $this->db->table('diskon')->insert($data);
+    }
+    public function deleteDiskon($data)
+    {
+        return $this->where('Kode_Diskon', $data)->delete();
     }
 }

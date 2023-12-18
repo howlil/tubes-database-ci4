@@ -20,7 +20,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Tambah Kategori</button>
             </form>
-            <form action="<?= base_url('/add-subkategori') ?>" method="post" class=" mt-3">
+            <form action="<?= base_url('/add-subkategori') ?>" method="post" class="mt-3">
                 <div class="mb-3">
                     <label for="subkategoriId" class="form-label">ID Subkategori</label>
                     <input type="text" class="form-control" id="subkategoriId" name="subkategoriId" required>
@@ -28,13 +28,16 @@
                 <div class="mb-3">
                     <label for="kategoriId" class="form-label">Kategori</label>
                     <select class="form-control" id="kategoriId" name="kategoriId">
-                        <?php foreach ($kategori as $kat) : ?>
+                        <?php foreach ($allKategori as $kat) : ?>
                         <?php if (isset($kat['Nama'])): ?>
-                        <option value="<?= $kat['ID_Kategori']; ?>"><?= htmlspecialchars($kat['Nama']); ?></option>
+                        <option value="<?= $kat['ID_Kategori']; ?>"
+                            <?= isset($kategoriId) && $kategoriId == $kat['ID_Kategori'] ? 'selected' : '' ?>>
+                            <?= htmlspecialchars($kat['Nama']); ?>
+                        </option>
                         <?php endif; ?>
                         <?php endforeach; ?>
                     </select>
-                    </select>
+
                 </div>
                 <div class="mb-3">
                     <label for="subkategoriNama" class="form-label">Nama Subkategori</label>

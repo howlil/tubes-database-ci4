@@ -11,6 +11,14 @@ class SubKategoriProdukModel extends Model
     protected $allowedFields = ['ID_SubKategori','ID_Kategori', 'Nama'];
     protected $returnType = 'array';
     protected $useTimestamps = false;
-
+    
+    public function getSubKategoriWithKategori()
+    {
+        return $this->db->table($this->table)
+                        ->join('kategori', 'kategori.ID_Kategori = sub_kategori.ID_Kategori')
+                        ->select('sub_kategori.*, kategori.Nama as NamaKategori')
+                        ->get()
+                        ->getResultArray();
+    }
 
 }

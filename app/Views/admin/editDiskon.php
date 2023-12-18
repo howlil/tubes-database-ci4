@@ -7,52 +7,26 @@
     <?= $this->include('/admin/layout/navbar') ?>
 
     <div class="container-fluid">
-        <?php
-// Inisialisasi array untuk menyimpan data diskon
-$diskon = [];
 
-// Sertakan koneksi database Anda di sini
-// $pdo = new PDO('dsn_database_anda', 'username_anda', 'password_anda');
-
-if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['Kode_Diskon'])) {
-    // Sanitasi inputan
-    $kodeDiskon = filter_input(INPUT_POST, 'Kode_Diskon', FILTER_SANITIZE_STRING);
-    $nilaiDiskon = filter_input(INPUT_POST, 'Nilai', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-    $tanggalMulai = filter_input(INPUT_POST, 'Tanggal_Mulai', FILTER_SANITIZE_STRING);
-    $tanggalBerakhir = filter_input(INPUT_POST, 'Tanggal_Berakhir', FILTER_SANITIZE_STRING);
-
-    // Masukkan ke dalam database dan ambil daftar terbaru
-    $stmt = $pdo->prepare("INSERT INTO Diskon (Kode_Diskon, Nilai, Tanggal_Mulai, Tanggal_Berakhir) VALUES (:kodeDiskon, :nilaiDiskon, :tanggalMulai, :tanggalBerakhir)");
-    $stmt->execute([
-        ':kodeDiskon' => $kodeDiskon,
-        ':nilaiDiskon' => $nilaiDiskon,
-        ':tanggalMulai' => $tanggalMulai,
-        ':tanggalBerakhir' => $tanggalBerakhir
-    ]);
-
-    // Ambil daftar diskon yang terbaru
-    $diskon = $pdo->query("SELECT * FROM Diskon")->fetchAll(PDO::FETCH_ASSOC);
-}
-?>
 
         <div class="container mt-5">
             <h2>Formulir Entri Diskon</h2>
-            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+            <form action="<?= base_url('/add-diskon') ?>" method="post">
                 <div class="mb-3">
                     <label for="kodeDiskon" class="form-label">Kode Diskon</label>
-                    <input type="text" class="form-control" id="kodeDiskon" name="Kode_Diskon" required>
+                    <input type="text" class="form-control" id="kodeDiskon" name="kodeDiskon" required>
                 </div>
                 <div class="mb-3">
                     <label for="nilaiDiskon" class="form-label">Nilai Diskon</label>
-                    <input type="number" step="0.01" class="form-control" id="nilaiDiskon" name="Nilai" required>
+                    <input type="number" step="0.01" class="form-control" id="nilaiDiskon" name="nilaiDiskon" required>
                 </div>
                 <div class="mb-3">
                     <label for="tanggalMulai" class="form-label">Tanggal Mulai</label>
-                    <input type="date" class="form-control" id="tanggalMulai" name="Tanggal_Mulai" required>
+                    <input type="date" class="form-control" id="tanggalMulai" name="tanggalMulai" required>
                 </div>
                 <div class="mb-3">
                     <label for="tanggalBerakhir" class="form-label">Tanggal Berakhir</label>
-                    <input type="date" class="form-control" id="tanggalBerakhir" name="Tanggal_Berakhir" required>
+                    <input type="date" class="form-control" id="tanggalBerakhir" name="tanggalBerakhir" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Tambah Diskon</button>
             </form>
@@ -67,6 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['Kode_Diskon'])) {
                             <th scope="col">Nilai</th>
                             <th scope="col">Tanggal Mulai</th>
                             <th scope="col">Tanggal Berakhir</th>
+                            <th scope="col"> Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -76,6 +51,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['Kode_Diskon'])) {
                             <td><?= htmlspecialchars($d['Nilai']) ?></td>
                             <td><?= htmlspecialchars($d['Tanggal_Mulai']) ?></td>
                             <td><?= htmlspecialchars($d['Tanggal_Berakhir']) ?></td>
+                            <td>
+                                <a href="<?= base_url('/hapus-diskon/' . $d['Kode_Diskon']) ?>"
+                                    class="btn btn-danger btn-sm">Hapus</a>
+
+                            </td>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>

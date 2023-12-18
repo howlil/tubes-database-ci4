@@ -33,13 +33,13 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
     </script>
-
+    <!-- 
     <script>
     // Refresh bagian halaman setiap 5 detik
     setInterval(function() {
         window.location.reload();
     }, 5000); // 5000 ms = 5 detik
-    </script>
+    </script> -->
 
     <script src="/js/nav.js"></script>
     <!-- Bootstrap core JavaScript-->

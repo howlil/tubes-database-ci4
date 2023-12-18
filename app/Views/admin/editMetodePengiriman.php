@@ -7,8 +7,7 @@
     <?= $this->include('/admin/layout/navbar') ?>
 
     <div class="container-fluid">
-
-        <div class="container mt-5">
+        <div class="container my-5">
             <h2>Tambah Metode Pembayaran</h2>
             <form action="<?= base_url('/add-pengiriman') ?>" method="post">
                 <?= csrf_field() ?>

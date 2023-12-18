@@ -28,6 +28,7 @@ class Validation extends BaseConfig
         FileRules::class,
         CreditCardRules::class,
         ValidationRules::class,
+        \Myth\Auth\Authentication\Passwords\ValidationRules::class
     ];
 
     /**

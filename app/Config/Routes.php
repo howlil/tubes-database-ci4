@@ -14,9 +14,18 @@ $routes->get('/ketegori/dripcoffee', 'UserController::kategori');
 $routes->get('/keranjang', 'UserController::keranjang');
 $routes->get('/konfirmasi-pembayaran', 'UserController::konfirmasipembayaran');
 
-//==============admin======================
+//==============Dashboard admin======================
 $routes->get('/dashboard', 'AdminController::index');
+$routes->get('/hapus-produk/(:segment)', 'AdminController::hapusProduk/$1');
+//==============end======================
+
+//==============produk======================
+
 $routes->get('/edit-produk', 'AdminController::editProduk');
+$routes->post('/add-produk', 'AdminController::addProduk');
+$routes->get('/get-subkategori', 'AdminController::getSubkategori');
+
+//==============end======================
 
 //================pay=====================
 $routes->get('/edit-pembayaran', 'AdminController::editPembayaran');
@@ -35,10 +44,21 @@ $routes->get('/voucher', 'AdminController::Voucher');
 $routes->post('/addVoucher', 'AdminController::addVoucher');
 $routes->get('/hapus-voucher/(:segment)', 'AdminController::hapusVoucher/$1');
 
-//================end voucher=====================
+//================end =====================
 
+//================diskon=====================
 $routes->get('/edit-diskon', 'AdminController::editDiskon');
+$routes->post('/add-diskon', 'AdminController::addDiskon');
+$routes->get('/hapus-diskon/(:segment)', 'AdminController::hapusDiskon/$1');
+//================end =====================
+
+//================FS=====================
 $routes->get('/edit-flash-sale', 'AdminController::editFlashSale');
+$routes->post('/add-flash-sale', 'AdminController::addFlashSale');
+$routes->get('/hapus-flash-sale/(:segment)', 'AdminController::deleteFlashSale/$1');
+
+
+//================end =====================
 
 //==============keatgori======================
 $routes->get('/edit-kategori', 'AdminController::editKategori');
