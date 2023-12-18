@@ -24,8 +24,8 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <!-- <link href="admin/css/sb-admin-2.css" rel="stylesheet"> -->
-    <link href="admin/scss/sb-admin-2.css" rel="stylesheet">
+    <link href="admin/css/sb-admin-2.css" rel="stylesheet">
+    <!-- <link href="admin/scss/sb-admin-2.css" rel="stylesheet"> -->
 
 </head>
 

@@ -5,14 +5,30 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
+
+
+//============== user ======================
 $routes->get('/', 'UserController::index');
 $routes->get('/checkout/pengiriman', 'UserController::checkout');
 $routes->get('/checkout/pembayaran', 'UserController::bayar');
-$routes->get('/login', 'UserController::login');
-$routes->get('/register', 'UserController::register');
-$routes->get('/ketegori/dripcoffee', 'UserController::kategori');
+
+//============== kategori ======================
+$routes->get('/ketegori', 'UserController::kategori');
+//==============end======================
+
 $routes->get('/keranjang', 'UserController::keranjang');
+$routes->post('/add-keranjang', 'UserController::addKeranjang');
+
 $routes->get('/konfirmasi-pembayaran', 'UserController::konfirmasipembayaran');
+
+
+
+//==============Auth myth======================
+
+$routes->get('/login', 'Authcontroller::login');
+$routes->get('/register', 'Authcontroller::register');
+
+//==============end======================
 
 //==============Dashboard admin======================
 $routes->get('/dashboard', 'AdminController::index');

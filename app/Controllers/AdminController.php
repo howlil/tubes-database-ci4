@@ -100,33 +100,78 @@ class AdminController extends BaseController
     }
 
 
+    // public function addProduk()
+    // {
+    //     $idFlashSale = $this->request->getPost('ID_FlashSale');
+    //     if ($idFlashSale === '') {
+    //         $idFlashSale = null;
+    //     }
+
+    //     if ($idFlashSale !== null && !$this->FlashSaleModel->find($idFlashSale)) {
+    //         return redirect()->back()->with('error', 'Invalid Flash Sale ID');
+    //     }
+
+    //     $data = [
+    //         'ID_Produk' => $this->request->getPost('ID_Produk'),
+    //         'Kode_Diskon' => $this->request->getPost('Kode_Diskon'),
+    //         'ID_SubKategori' => $this->request->getPost('ID_SubKategori'),
+    //         'ID_FlashSale' => $this->request->getPost('ID_FlashSale'),
+    //         'Nama_Barang' => $this->request->getPost('Nama_Barang'),
+    //         'Harga_Barang' => $this->request->getPost('Harga_Barang'),
+    //         'Deskripsi_Belanja' => $this->request->getPost('deskripsi'),
+    //         'Gambar' => $this->request->getFile('gambar'),
+    //         'stok' => $this->request->getPost('stok'),
+    //     ];
+
+    //     $this->ProdukModel->insertProduk($data);
+
+    //     return redirect()->to('/edit-produk');
+    // }
     public function addProduk()
-    {
-        $idFlashSale = $this->request->getPost('ID_FlashSale');
-        if ($idFlashSale === '') {
-            $idFlashSale = null;
-        }
-
-        if ($idFlashSale !== null && !$this->FlashSaleModel->find($idFlashSale)) {
-            return redirect()->back()->with('error', 'Invalid Flash Sale ID');
-        }
-
-        $data = [
-            'ID_Produk' => $this->request->getPost('ID_Produk'),
-            'Kode_Diskon' => $this->request->getPost('Kode_Diskon'),
-            'ID_SubKategori' => $this->request->getPost('ID_SubKategori'),
-            'ID_FlashSale' => $this->request->getPost('ID_FlashSale'),
-            'Nama_Barang' => $this->request->getPost('Nama_Barang'),
-            'Harga_Barang' => $this->request->getPost('Harga_Barang'),
-            'Deskripsi_Belanja' => $this->request->getPost('Deskripsi_Belanja'),
-            'Gambar' => $this->request->getFile('Gambar'),
-            'stok' => $this->request->getPost('stok'),
-        ];
-
-        $this->ProdukModel->insertProduk($data);
-
-        return redirect()->to('/edit-produk');
+{
+    $idFlashSale = $this->request->getPost('ID_FlashSale');
+    if ($idFlashSale === '') {
+        $idFlashSale = null;
     }
+
+    if ($idFlashSale !== null && !$this->FlashSaleModel->find($idFlashSale)) {
+        return redirect()->back()->with('error', 'Invalid Flash Sale ID');
+    }
+
+    // Handle image upload
+    $img = $this->request->getFile('gambar');
+    if ($img->isValid() && !$img->hasMoved()) {
+        if ($img->getExtension() == 'jpg' || $img->getMimeType() == 'image/jpeg') {
+            $newName = $img->getRandomName();
+            $img->move('public/images', $newName);
+            $imagePath = 'public/images/' . $newName;
+        } else {
+            // Handle invalid file type
+            return redirect()->back()->with('error', 'Please upload a valid JPG image.');
+        }
+    } else {
+        // Handle file upload error
+        return redirect()->back()->with('error', 'Error in uploading image.');
+    }
+
+    // Prepare other data for database insertion
+    $data = [
+        'ID_Produk' => $this->request->getPost('ID_Produk'),
+        'Kode_Diskon' => $this->request->getPost('Kode_Diskon'),
+        'ID_SubKategori' => $this->request->getPost('ID_SubKategori'),
+        'ID_FlashSale' => $idFlashSale, // Using the processed ID
+        'Nama_Barang' => $this->request->getPost('Nama_Barang'),
+        'Harga_Barang' => $this->request->getPost('Harga_Barang'),
+        'Deskripsi_Belanja' => $this->request->getPost('deskripsi'),
+        'Gambar' => $imagePath, // Using the image path
+        'stok' => $this->request->getPost('stok'),
+    ];
+
+    $this->ProdukModel->insertProduk($data);
+
+    return redirect()->to('/edit-produk');
+}
+
     //=================end=======================
 
     //=================Payment=======================

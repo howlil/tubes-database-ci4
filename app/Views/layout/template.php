@@ -50,6 +50,31 @@
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="js/sb-admin-2.min.js"></script>
 
+    <script>
+    document.getElementById('userDropdown').addEventListener('mouseenter', function() {
+        this.classList.add('show');
+        this.querySelector('.dropdown-menu').classList.add('show');
+    });
+
+    document.getElementById('userDropdown').addEventListener('mouseleave', function() {
+        this.classList.remove('show');
+        this.querySelector('.dropdown-menu').classList.remove('show');
+    });
+    </script>
+    <script>
+    document.querySelectorAll('.category-item').forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            const categoryId = this.getAttribute('data-kategori');
+            document.querySelectorAll('.product-category').forEach(subcat => {
+                if (subcat.getAttribute('data-kategori') === categoryId) {
+                    subcat.style.display = 'block';
+                } else {
+                    subcat.style.display = 'none';
+                }
+            });
+        });
+    });
+    </script>
 </body>
 
 </html>

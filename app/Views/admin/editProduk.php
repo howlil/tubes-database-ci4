@@ -15,8 +15,8 @@
                     <input type="text" class="form-control" id="idProduk" name="ID_Produk" required>
                 </div>
                 <div class="mb-3">
-                    <label for="namaBarang" class="form-label">Nama Barang</label>
-                    <input type="text" class="form-control" id="namaBarang" name="Nama_Barang" required>
+                    <label for="Nama_Barang" class="form-label">Nama Barang</label>
+                    <input type="text" class="form-control" id="Nama_Barang" name="Nama_Barang" required>
                 </div>
                 <div class="mb-3">
                     <label for="hargaBarang" class="form-label">Harga Barang</label>
@@ -24,14 +24,14 @@
                 </div>
                 <div class="mb-3">
                     <label for="deskripsi" class="form-label">Deskripsi</label>
-                    <textarea class="form-control" id="deskripsi" name="Deskripsi_Belanja" rows="3" required></textarea>
+                    <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3" required></textarea>
                 </div>
                 <div class="mb-3">
                     <label for="kategoriDropdown" class="form-label">Kategori</label>
                     <select class="form-select" id="kategoriDropdown" name="ID_Kategori">
                         <option value="">Pilih Kategori</option>
                         <?php foreach ($allKategori as $k) : ?>
-                            <option required value="<?= $k['ID_Kategori']; ?>"><?= htmlspecialchars($k['Nama']); ?></option>
+                        <option required value="<?= $k['ID_Kategori']; ?>"><?= htmlspecialchars($k['Nama']); ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -46,8 +46,8 @@
                     <select class="form-select" id="ID_Diskon" name="ID_Diskon">
                         <option value="">Pilih Diskon</option>
                         <?php foreach ($allDiskon as $diskon) : ?>
-                            <option value="<?= $diskon['Kode_Diskon']; ?>"><?= htmlspecialchars($diskon['Kode_Diskon']); ?>
-                            </option>
+                        <option value="<?= $diskon['Kode_Diskon']; ?>"><?= htmlspecialchars($diskon['Kode_Diskon']); ?>
+                        </option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -56,8 +56,8 @@
                     <select class="form-select" id="ID_FlashSale" name="ID_FlashSale">
                         <option value="">Pilih Flash Sale</option>
                         <?php foreach ($allFlashSale as $flashSale) : ?>
-                            <option value="<?= $flashSale['ID_FlashSale']; ?>"><?= htmlspecialchars($flashSale['Nama']); ?>
-                            </option>
+                        <option value="<?= $flashSale['ID_FlashSale']; ?>"><?= htmlspecialchars($flashSale['Nama']); ?>
+                        </option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -65,11 +65,11 @@
 
                 <div class="mb-3">
                     <label for="stok" class="form-label">Stok</label>
-                    <input type="number" class="form-control" id="stok" name="Stok" required>
+                    <input type="number" class="form-control" id="stok" name="stok" required>
                 </div>
                 <div class="mb-3">
                     <label for="gambar" class="form-label">Gambar</label>
-                    <input class="form-control" type="file" id="gambar" name="Gambar" required>
+                    <input class="form-control" type="file" id="gambar" name="gambar" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Tambah Produk</button>
             </form>
@@ -77,21 +77,21 @@
     </div>
 </div>
 <script>
-    document.getElementById('kategoriDropdown').addEventListener('change', function() {
-        fetch('<?= base_url('/get-subkategori') ?>?kategori=' + this.value)
-            .then(response => response.json())
-            .then(data => {
-                var subKategoriDropdown = document.getElementById('subKategoriDropdown');
-                subKategoriDropdown.innerHTML = '<option value="">Pilih Subkategori</option>';
-                data.forEach(function(subkategori) {
-                    var opt = document.createElement('option');
-                    opt.value = subkategori.ID_SubKategori;
-                    opt.innerHTML = subkategori.Nama;
-                    subKategoriDropdown.appendChild(opt);
-                });
-            })
-            .catch(error => console.error('Error:', error));
-    });
+document.getElementById('kategoriDropdown').addEventListener('change', function() {
+    fetch('<?= base_url('/get-subkategori') ?>?kategori=' + this.value)
+        .then(response => response.json())
+        .then(data => {
+            var subKategoriDropdown = document.getElementById('subKategoriDropdown');
+            subKategoriDropdown.innerHTML = '<option value="">Pilih Subkategori</option>';
+            data.forEach(function(subkategori) {
+                var opt = document.createElement('option');
+                opt.value = subkategori.ID_SubKategori;
+                opt.innerHTML = subkategori.Nama;
+                subKategoriDropdown.appendChild(opt);
+            });
+        })
+        .catch(error => console.error('Error:', error));
+});
 </script>
 
 

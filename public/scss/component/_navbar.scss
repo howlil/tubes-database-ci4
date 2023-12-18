@@ -104,16 +104,9 @@
                 }
 
                 .product-display {
-                    width: 1000px;
-
-                    .product-wrap {
-                        display: flex;
-                        flex-wrap: wrap;
-                        gap: 20px;
 
                         .product-category {
-                            display: flex;
-                            align-items: center;
+                    
 
 
                             a {
@@ -146,8 +139,8 @@
 
                                 }
                             }
+                        
                         }
-                    }
 
                 }
             }

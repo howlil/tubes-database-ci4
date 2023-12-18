@@ -24,15 +24,18 @@
         </a>
     </div>
 </div>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container header">
         <!-- Logo -->
         <a class="navbar-brand align-items-center d-flex" href="/">
-            <img src="https://d8g5mz6srwlcs.cloudfront.net/v3.59.0/images/logo-otten-coffee.png" alt="logo-otten-coffee" width="75">
+            <img src="https://d8g5mz6srwlcs.cloudfront.net/v3.59.0/images/logo-otten-coffee.png" alt="logo-otten-coffee"
+                width="75">
         </a>
 
         <!-- Toggler untuk mobile view -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -47,7 +50,8 @@
 
             <!-- Search Bar -->
             <form class="d-flex flex-grow-1 me-auto">
-                <input class="form-control" type="search" placeholder="Pay Day November Disc 90% + Extra voucher 800rb" aria-label="Search" style="max-width: 400px;">
+                <input class="form-control" type="search" placeholder="Pay Day November Disc 90% + Extra voucher 800rb"
+                    aria-label="Search" style="max-width: 400px;">
             </form>
 
             <!-- Navbar icons -->
@@ -84,152 +88,113 @@
                             <span class="visually-hidden">unread messages</span>
                         </span>
                     </a>
+
+
                     <div class="cart-summary position-absolute">
                         <div class="d-flex flex-column align-items-start p-3 bg-white border rounded">
-                            <h6 class="text-dark fw-bold mb-1">Subtotal (1 Produk)</h6>
+                            <?php if (isset($produkcart)) : ?>
+                            <?php foreach ($produkcart as $produk) : ?>
+                            <h6 class="text-dark fw-bold mb-1">Subtotal </h6>
                             <hr>
                             <div class="d-flex justify-content-between w-100">
-                                <div class="d-flex gap-2">
-                                    <img height="50" src="https://s-ecom.ottenstatic.com/thumbnail/60e3f04389844278706618.png" alt="">
-                                    <div>
-                                        <p class="p-0 m-0 text-muted lh-sm ">Buy 1 Get 1 - Cold Brew 1L - Arabica
-                                            Lintong
-                                            Semi
-                                            Washed
-                                            (Set)</p>
-                                        <p class="p-0 m-0 text-dark fw-bold">Rp 396.000</p>
-                                    </div>
 
-                                </div>
-                                <div class=" d-flex flex-column justify-content-between align-items-end ">
-                                    <i class="fa-solid fa-trash"></i>
-                                    <div class="quantity-selector d-flex justify-content-center align-items-center gap-2">
-                                        <button class="btn btn-outline-success btn-quantity-change  p-0 m-0" type="button">-</button>
-                                        <input type="text" class="form-control text-center quantity-input" value="1" readonly>
-                                        <button class="btn btn-outline-success btn-quantity-change  p-0 m-0" type="button">+</button>
-                                    </div>
-
+                            </div>
+                            <div class="product-in-cart d-flex gap-2">
+                                <img src="<?= $produk['Gambar']; ?>" alt="<?= $produk['Nama_Barang']; ?>">
+                                <div>
+                                    <p><?= $produk['Nama_Barang']; ?></p>
+                                    <p>Rp <?= number_format($produk['Harga_Barang'], 2, ',', '.'); ?></p>
                                 </div>
 
+                            </div>
+                            <div class=" d-flex flex-column justify-content-between align-items-end ">
+                                <i class="fa-solid fa-trash"></i>
+                                <div class="quantity-selector d-flex justify-content-center align-items-center gap-2">
+                                    <button class="btn btn-outline-success btn-quantity-change  p-0 m-0"
+                                        type="button">-</button>
+                                    <input type="text" class="form-control text-center quantity-input" value="1"
+                                        readonly>
+                                    <button class="btn btn-outline-success btn-quantity-change  p-0 m-0"
+                                        type="button">+</button>
+                                </div>
 
-                            </div><a href="" class=""></a>
-
+                            </div>
                             <button class="btn btn-success d-grid  mt-3 col-12 mx-auto">
                                 <a class="text-decoration-none text-white" href="/keranjang">Lihat Keranjang</a>
                             </button>
+                            <?php endforeach; ?>
+                            <?php endif; ?>
                         </div>
+
+                    </div>
+
+
+                </li>
+
+                <li class="nav-item dropdown no-arrow" id="userDropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <span class="mr-2 d-none d-lg-inline text-gray-600 small"></span>
+                        <img src="https://d8g5mz6srwlcs.cloudfront.net/v3.59.0/images/default-profile.png"
+                            alt="Image default profile" class="rounded-circle" style="width: 32px;">
+                    </a>
+                    <!-- Dropdown - User Information -->
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                        aria-labelledby="userDropdown">
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/login" data-toggle="modal" data-target="#logoutModal">
+                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Setiting Akun
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/login" data-toggle="modal" data-target="#logoutModal">
+                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Logout
+                        </a>
                     </div>
                 </li>
 
-                <li class="nav-item ms-4">
-                    <a class="nav-link" href="#">
-                        <img src="https://d8g5mz6srwlcs.cloudfront.net/v3.59.0/images/default-profile.png" alt="Image default profile" class="rounded-circle" style="width: 32px;">
-                    </a>
-                </li>
             </ul>
         </div>
     </div>
-    <!-- side bar -->
+
     <div class="category-sidebar">
         <div class="category-content ">
             <div class="container  ">
                 <div class="category-list-container d-flex gap-4 ">
-                    <ul class="category-list ">
-                        <li class="category-item ">
-                            <a href="/categories/coffee">
-                                <h5 class="sc-ifAKCX gRpRfz">Coffee</h5>
+
+                    <ul class="category-list">
+                        <?php foreach ($kategori as $kat) : ?>
+                        <li class="category-item" data-kategori="<?= $kat['ID_Kategori']; ?>">
+                            <a href="#">
+                                <h5><?= $kat['Nama']; ?></h5>
                             </a>
                         </li>
-                        <li class="category-item ">
-                            <a href="/categories/tea-beverages">
-                                <h5 class="sc-ifAKCX gRpRfz">Tea &amp; Beverages</h5>
-                            </a>
-                        </li>
-                        <li class="category-item ">
-                            <a href="/categories/grinders">
-                                <h5 class="sc-ifAKCX gRpRfz">Grinders</h5>
-                            </a>
-                        </li>
-                        <li class="category-item ">
-                            <a href="/categories/coffee-machines">
-                                <h5 class="sc-ifAKCX gRpRfz">Coffee Machines</h5>
-                            </a>
-                        </li>
-                        <li class="category-item ">
-                            <a href="/categories/manual-brewers">
-                                <h5 class="sc-ifAKCX gRpRfz">Manual Brewers</h5>
-                            </a>
-                        </li>
-                        <li class="category-item ">
-                            <a href="/categories/coffee-tools">
-                                <h5 class="sc-ifAKCX gRpRfz">Coffee Tools</h5>
-                            </a>
-                        </li>
-                        <li class="category-item ">
-                            <a href="/categories/barista-tools">
-                                <h5 class="sc-ifAKCX gRpRfz">Barista Tools</h5>
-                            </a>
-                        </li>
-                        <li class="category-item ">
-                            <a href="/categories/roaster-and-others">
-                                <h5 class="sc-ifAKCX gRpRfz">Roaster &amp; Others</h5>
-                            </a>
-                        </li>
-                        <li class="category-item ">
-                            <a href="/categories/kitchen-appliances">
-                                <h5 class="sc-ifAKCX gRpRfz">Kitchen Appliances</h5>
-                            </a>
-                        </li>
-                        <li class="category-item ">
-                            <a href="/categories/new-bundling">
-                                <h5 class="sc-ifAKCX gRpRfz">Bundling Sets</h5>
-                            </a>
-                        </li>
+                        <?php endforeach; ?>
                     </ul>
 
-                    <div class="product-display  ">
-                        <div class="product-wrap">
-                            <div class="product-category ezCSxo">
-                                <a href="ketegori/dripcoffee">
-                                    <div class="product-wrap"><img src="https://s-ecom.ottenstatic.com/thumbnail/5f4c6543704bd935977468.png" alt="Icon Drip Coffee" class="sc-cClmTo gtPRfJ"></div>
-                                    <h6 class="sc-EHOje iHDCTd">Drip Coffee</h6>
-                                </a>
-                            </div>
-                            <div class="product-category ezCSxo">
-                                <a href="<?= site_url('category/coffee/coffee-beans') ?>">
-                                    <div class="product-wrap">
-                                        <img src="https://s-ecom.ottenstatic.com/thumbnail/64afc9daecb1c324710620.png" alt="Icon Coffee Beans" class="sc-cClmTo gtPRfJ">
-                                    </div>
-                                    <h6 class="sc-EHOje iHDCTd">Coffee Beans</h6>
-                                </a>
-                            </div>
-                            <div class="product-category ezCSxo"><a href="/categories/cold-brew">
-                                    <div class="product-wrap"><img src="https://s-ecom.ottenstatic.com/thumbnail/5f4c654d9f5f8726837783.png" alt="Icon Cold Brew" class="sc-cClmTo gtPRfJ"></div>
-                                    <h6 class="sc-EHOje iHDCTd">Cold Brew</h6>
-                                </a></div>
-                            <div class="product-category ezCSxo"><a href="/categories/ready-to-drink">
-                                    <div class="product-wrap"><img src="https://s-ecom.ottenstatic.com/thumbnail/60e3f04389844278706618.png" alt="Icon Ready to Drink" class="sc-cClmTo gtPRfJ"></div>
-                                    <h6 class="sc-EHOje iHDCTd">Ready to Drink</h6>
-                                </a></div>
-                            <div class="product-category ezCSxo"><a href="/categories/kopi-luwak">
-                                    <div class="product-wrap"><img src="https://s-ecom.ottenstatic.com/thumbnail/5f4c6503a425d466297979.png" alt="Icon Kopi Luwak" class="sc-cClmTo gtPRfJ"></div>
-                                    <h6 class="sc-EHOje iHDCTd">Kopi Luwak</h6>
-                                </a></div>
-                            <div class="product-category ezCSxo"><a href="/categories/green-bean">
-                                    <div class="product-wrap"><img src="https://s-ecom.ottenstatic.com/thumbnail/5f4c6532bcd08353845337.png" alt="Icon Green Bean" class="sc-cClmTo gtPRfJ"></div>
-                                    <h6 class="sc-EHOje iHDCTd">Green Bean</h6>
-                                </a></div>
-                            <div class="product-category ezCSxo"><a href="/categories/capsules">
-                                    <div class="product-wrap"><img src="https://s-ecom.ottenstatic.com/thumbnail/5f4c64f40f76e356882238.png" alt="Icon Capsules" class="sc-cClmTo gtPRfJ"></div>
-                                    <h6 class="sc-EHOje iHDCTd">Capsules</h6>
-                                </a></div>
-                        </div>
+                    <!-- Subcategories -->
+                    <div class="product-display">
+                        <?php foreach ($subkategori as $subkat) : ?>
+                        <div class="product-category " data-kategori="<?= $subkat['ID_Kategori']; ?>">
 
+                            <a class="text-secondary d-flex gap-3 align-items-centern py-2 px-3 " href="#">
+                                <i class="fas fa-coffee"></i>
+                                <h6 class="p-0 m-0"><?= $subkat['Nama']; ?></h6>
+                            </a>
+
+
+                        </div>
+                        <?php endforeach; ?>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
+
+
+
 
 
 </nav>

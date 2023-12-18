@@ -42,33 +42,69 @@ class UserController extends BaseController
 
     public function index(): string
     {
-        $data['title']   = 'OttenCoffe';
+        $kategoriModel = new KategoriProdukModel();
+        $subkategoriModel = new SubKategoriProdukModel();
+        $data = [
+            'title' => 'OttenCoffe',
+            'kategori' => $kategoriModel->findAll(),
+            'subkategori' => $subkategoriModel->getSubKategoriWithKategori(),
+        ];
+
         return view('user/index', $data);
     }
 
 
-    public function login()
-    {
-        $data['title']   = 'Login';
-        return view('admin/auth/login', $data);
-    }
-    public function register()
-    {
-        $data['title']   = 'Register';
-        return view('admin/auth/register', $data);
-    }
 
+    //============Katgeori====================
     public function kategori()
     {
-        $data['title']   = 'Kategori';
-        echo view('user/category/coffee/dripCoffee', $data);
+        $data = [
+            'title' => 'OttenCoffe | Kategori',
+            'produk' => $this->ProdukModel->getProdukDetail(),
+        ];
+        return view('user/kategori', $data);
     }
+    //============End====================
+
+    //============Cart====================
     public function keranjang()
     {
-        $data['title']   = 'Keranjang';
+        $data = [
+            'title' => 'OttenCoffe | Keranjang',
+            'produk' => $this->ProdukModel->getProdukDetail(),
+        ];
         echo view('user/keranjang', $data);
     }
 
+    public function addKeranjang()
+    {
+        $model = new RincianPemesananModel();
+        $data = [
+            'ID_Produk' => $this->request->getPost('ID_Produk'),
+            'Harga_Barang' => $this->request->getPost('Harga_Barang'),
+            'Total_Belanja' => $this->request->getPost('Total_Belanja'),
+
+
+        ];
+
+        $model->addKeranjang($data);
+        return redirect()->back()->with('message', 'Produk berhasil ditambahkan ke keranjang');
+        return redirect()->to('/keranjang');
+    }
+
+    public function showKeranjang()
+    {
+        $model = new RincianPemesananModel();
+        $data = [
+            'produkcart' => $model->findAll(), // Mengambil semua data keranjang
+        ];
+
+        return view('layout/navbar', $data);
+    }
+
+
+
+    //============End====================
     public function checkout()
     {
         $data['title']   = 'Checkout';

@@ -48,21 +48,34 @@
                 <button>International</button>
             </div>
         </div>
-        <div class="product-grid">
+        <div class="product d-flex mb-5 flex-column">
+            <div class="product-grid">
+                <?php foreach ($produk as $p) : ?>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="<?= $p['Gambar'] ?>" alt="<?= $p['Nama_Barang'] ?>">
+                    </div>
+                    <div class="product-details d-flex flex-column ">
+                        <h3><?= $p['Nama_Barang'] ?></h3>
+                        <div class="product-price"><?= $p['Harga_Barang'] ?></div>
 
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="/img/cb/cb-cremaExpreso.jpg" alt="Crema Espresso">
+
+                        <form action="<?= base_url('/add-keranjang') ?>" method="post">
+                            <input type="hidden" name="product_id" value="<?= $p['ID_Produk']; ?>">
+                            <input type="hidden" name="product_price" value="<?= $p['Harga_Barang']; ?>">
+
+                            <div class="d-grid mt-3  mx-9 ">
+                                <button class="btn btn-success" type="submit" id="addKeranjang">+
+                                    Keranjang</button>
+                            </div>
+                        </form>
+
+
+                    </div>
+
                 </div>
-                <div class="product-details">
-                    <h3>Crema Espresso - Kopi House Blend 500gr</h3>
-                    <div class="product-price">Rp 119.000</div>
-                    <div class="product-rating">⭐ 5 (2373)</div>
-                    <button id="addToCartBtn" class="add-to-cart-btn">Keranjang</button>
-                </div>
+                <?php endforeach; ?>
             </div>
-
-
         </div>
         <!-- The Modal -->
         <div id="cartModal" class="modal">

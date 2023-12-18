@@ -59,7 +59,29 @@
                         </div>
                     </div>
 
+                    <?php foreach ($produk as $product): ?>
+                    <div class="media m-4 d-flex mt-5 justify-content-between">
+                        <div class="img-sec d-flex gap-2">
+                            <label class="custom-checkbox-p">
+                                <input type="checkbox" class="styled-checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                            <img src="<?= $product['Gambar']; ?>" height="70" class="mr-3"
+                                alt="<?= $product['Nama_Barang']; ?>">
+                            <div class="media-body">
+                                <h6 class="mt-0"><?= $product['Nama_Barang']; ?></h6>
+                                <p><?= $product['Deskripsi_Belanja']; ?></p>
+                            </div>
+                        </div>
+                        <div class="price d-flex gap-5">
+                            <p class="pricet">Rp <?= number_format($product['Harga_Barang'], 2, ',', '.'); ?></p>
+                            <p>x<?= $product['stok']; ?></p>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
 
+
+                    <!-- 
                     <div class="media m-4 d-flex mt-5 justify-content-between">
                         <div class="img-sec d-flex gap-2">
                             <label class="custom-checkbox-p">
@@ -72,12 +94,12 @@
                                 <p>Wholebean (Biji Kopi)</p>
                             </div>
                         </div>
-
                         <div class="price d-flex gap-5">
                             <p class="pricet">Rp 119.000 </p>
                             <p>x1</p>
                         </div>
-                    </div>
+                    </div> -->
+
                 </div>
             </div>
             <div class="col-md-4 right">
