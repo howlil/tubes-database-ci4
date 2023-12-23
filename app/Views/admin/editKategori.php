@@ -64,34 +64,41 @@
                 </thead>
                 <tbody>
                     <?php
-        $kategoriTerlihat = []; // Untuk menyimpan kategori yang sudah ditampilkan
-        foreach ($kategori as $kat) :
-            if (!in_array($kat['Nama'], $kategoriTerlihat)) {
-                $kategoriTerlihat[] = $kat['Nama']; // Tandai kategori ini sebagai ditampilkan
-                ?>
+    $kategoriTerlihat = []; // Untuk menyimpan kategori yang sudah ditampilkan
+    foreach ($kategori as $kat) :
+        if (!in_array($kat['Nama'], $kategoriTerlihat)) {
+            $kategoriTerlihat[] = $kat['Nama']; // Tandai kategori ini sebagai ditampilkan
+            ?>
                     <tr>
                         <td><?= htmlspecialchars($kat['Nama']) ?></td>
                         <td>
-                            <?php if (isset($kat['SubKategori']) && is_array($kat['SubKategori'])): ?>
-                            <?php foreach ($kat['SubKategori'] as $subkat): ?>
-                            <?= htmlspecialchars($subkat['SubKategoriNama']) ?>
-                            <?php if (isset($subkat['ID_SubKategori'])): ?>
-                            <a href="<?= base_url('/hapus-subkategori/' . $subkat['ID_SubKategori']) ?>"
-                                class="btn btn-danger btn-sm">Hapus</a>
-                            <?php endif; ?>
-                            <br>
-                            <?php endforeach; ?>
-                            <?php endif; ?>
+                            <?php
+                                // Menampilkan semua subkategori untuk kategori ini
+                                foreach ($kategori as $subItem) {
+                                    if ($subItem['Nama'] == $kat['Nama']) {
+                                        echo htmlspecialchars($subItem['SubKategoriNama']);
+
+                                        // Cek jika ID_SubKategori ada sebelum menampilkan tombol hapus
+                                        if (isset($subItem['ID_SubKategori'])) {
+                                            echo ' <a href="' . base_url('/hapus-subkategori/' . $subItem['ID_SubKategori']) . '" class="btn btn-danger btn-sm">Hapus</a>';
+                                        }
+                                        echo '<br>';
+                                    }
+                                }
+                            ?>
+
+
                         </td>
                         <td>
-                            <?php
-                        foreach ($kategori as $subkat) {
-                            if ($subkat['Nama'] == $kat['Nama'] && isset($subkat['Gambar']) && !empty($subkat['Gambar'])) {
-                                // Menampilkan gambar
-                                echo '<img src="' . base_url('public/img/' . $subkat['Gambar']) . '" width="50" height="50"><br>';
-                            }
-                        }
-                        ?>
+                            <?php foreach ($kategori as $k) : ?>
+                            <?php if (isset($k['Gambar'])): ?>
+                            <img src="<?= base_url('public/images/' . htmlspecialchars($k['Gambar'])); ?>"
+                                alt="Kategori Image" style="max-width: 100px; max-height: 100px;">
+                            <?php else: ?>
+                            <p>Gambar tidak tersedia</p>
+                            <?php endif; ?>
+                            <?php endforeach; ?>
+
                         </td>
                         <td>
                             <a href="<?= base_url('/hapus-kategori/' . $kat['ID_Kategori']) ?>"
@@ -99,11 +106,10 @@
                         </td>
                     </tr>
                     <?php
-            }
-        endforeach;
+        }
+    endforeach;
     ?>
                 </tbody>
-
 
             </table>
         </div>

@@ -31,7 +31,7 @@
                     <select class="form-select" id="kategoriDropdown" name="ID_Kategori">
                         <option value="">Pilih Kategori</option>
                         <?php foreach ($allKategori as $k) : ?>
-                        <option required value="<?= $k['ID_Kategori']; ?>"><?= htmlspecialchars($k['Nama']); ?></option>
+                            <option required value="<?= $k['ID_Kategori']; ?>"><?= htmlspecialchars($k['Nama']); ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -46,8 +46,8 @@
                     <select class="form-select" id="ID_Diskon" name="ID_Diskon">
                         <option value="">Pilih Diskon</option>
                         <?php foreach ($allDiskon as $diskon) : ?>
-                        <option value="<?= $diskon['Kode_Diskon']; ?>"><?= htmlspecialchars($diskon['Kode_Diskon']); ?>
-                        </option>
+                            <option value="<?= $diskon['Kode_Diskon']; ?>"><?= htmlspecialchars($diskon['Kode_Diskon']); ?>
+                            </option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -56,8 +56,8 @@
                     <select class="form-select" id="ID_FlashSale" name="ID_FlashSale">
                         <option value="">Pilih Flash Sale</option>
                         <?php foreach ($allFlashSale as $flashSale) : ?>
-                        <option value="<?= $flashSale['ID_FlashSale']; ?>"><?= htmlspecialchars($flashSale['Nama']); ?>
-                        </option>
+                            <option value="<?= $flashSale['ID_Flash_Sale']; ?>"><?= htmlspecialchars($flashSale['Nama']); ?>
+                            </option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -77,21 +77,21 @@
     </div>
 </div>
 <script>
-document.getElementById('kategoriDropdown').addEventListener('change', function() {
-    fetch('<?= base_url('/get-subkategori') ?>?kategori=' + this.value)
-        .then(response => response.json())
-        .then(data => {
-            var subKategoriDropdown = document.getElementById('subKategoriDropdown');
-            subKategoriDropdown.innerHTML = '<option value="">Pilih Subkategori</option>';
-            data.forEach(function(subkategori) {
-                var opt = document.createElement('option');
-                opt.value = subkategori.ID_SubKategori;
-                opt.innerHTML = subkategori.Nama;
-                subKategoriDropdown.appendChild(opt);
-            });
-        })
-        .catch(error => console.error('Error:', error));
-});
+    document.getElementById('kategoriDropdown').addEventListener('change', function() {
+        fetch('<?= base_url('/get-subkategori') ?>?kategori=' + this.value)
+            .then(response => response.json())
+            .then(data => {
+                var subKategoriDropdown = document.getElementById('subKategoriDropdown');
+                subKategoriDropdown.innerHTML = '<option value="">Pilih Subkategori</option>';
+                data.forEach(function(subkategori) {
+                    var opt = document.createElement('option');
+                    opt.value = subkategori.ID_SubKategori;
+                    opt.innerHTML = subkategori.Nama;
+                    subKategoriDropdown.appendChild(opt);
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    });
 </script>
 
 

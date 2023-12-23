@@ -12,9 +12,10 @@ class KategoriProdukModel extends Model
     protected $returnType = 'array';
     protected $useTimestamps = false;
 
-    public function getKategoriWithSubKategori() {
+    public function getKategoriWithSubKategori()
+    {
         $builder = $this->db->table('kategori');
-        $builder->select('kategori.*, sub_kategori.Nama as SubKategoriNama');
+        $builder->select('kategori.*, sub_kategori.Nama as SubKategoriNama, sub_kategori.ID_SubKategori');
         $builder->join('sub_kategori', 'sub_kategori.ID_Kategori = kategori.ID_Kategori', 'left');
         return $builder->get()->getResultArray();
     }

@@ -19,4 +19,11 @@ class SubKategoriProdukModel extends Model
                     ->first();
     }
     
+    public function getSubKategoriWithKategori() {
+        $builder = $this->db->table($this->table);
+        $builder->select('sub_kategori.*, kategori.Nama as KategoriNama');
+        $builder->join('kategori', 'kategori.ID_Kategori = sub_kategori.ID_Kategori', 'left');
+        return $builder->get()->getResultArray();
+    }
+    
 }

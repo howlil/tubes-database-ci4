@@ -57,90 +57,94 @@ class AdminController extends BaseController
     public function index(): string
     {
         $data = [
+            'produk' => $this->ProdukModel->getProdukWithKategori(),
             'title' =>  'OttenCoffe | Dashboard',
         ];
         return view('admin/index', $data);
     }
-    //     public function hapusProduk($idProduk)
-    //     {
-    //         $produkModel = new ProdukModel();
-    //         $produkModel->delete($idProduk);
+    public function hapusProduk($idProduk)
+    {
+        $produkModel = new ProdukModel();
+        $produkModel->delete($idProduk);
 
-    //         // Redirect ke halaman dashboard setelah penghapusan
-    //         return redirect()->to('/dashboard');
-    //     }
+        // Redirect ke halaman dashboard setelah penghapusan
+        return redirect()->to('/dashboard');
+    }
 
 
-    //     //=================end=======================
-    //     //=================Produk=======================
+    //=================end=======================
+    //=================Produk=======================
 
-    //     public function editProduk(): string
-    //     {
-    //         $data = [
-    //             'title' =>  'OttenCoffe | Edit Produk',
-    //             'produk' => $this->ProdukModel->getProduk(),
-    //             'allKategori' => $this->KategoriProdukModel->findAll(),
-    //             'allDiskon' => $this->DiskonModel->getDiskon(),
-    //             'allFlashSale' => $this->FlashSaleModel->getFlashSale(),
-    //             'subKategori' => $this->SubKategoriProdukModel->getSubKategoriWithKategori(),
-    //         ];
-    //         return view('admin/editProduk', $data);
-    //     }
+    public function editProduk(): string
+    {
+        $data = [
+            'title' =>  'OttenCoffe | Edit Produk',
+            'produk' => $this->ProdukModel->getProduk(),
+            'allKategori' => $this->KategoriProdukModel->findAll(),
+            'allDiskon' => $this->DiskonModel->getDiskon(),
+            'allFlashSale' => $this->FlashSaleModel->getFlashSale(),
+            'subKategori' => $this->SubKategoriProdukModel->getSubKategoriWithKategori(),
+        ];
+        return view('admin/editProduk', $data);
+    }
 
-    //     public function getSubkategori()
-    //     {
-    //         $kategoriId = $this->request->getGet('kategori');
-    //         $subKategoriModel = new SubKategoriProdukModel();
-    //         $subKategori = $subKategoriModel->where('ID_Kategori', $kategoriId)->findAll();
-    //         return $this->response->setJSON($subKategori);
-    //     }
+    public function getSubkategori()
+    {
+        $kategoriId = $this->request->getGet('kategori');
+        $subKategoriModel = new SubKategoriProdukModel();
+        $subKategori = $subKategoriModel->where('ID_Kategori', $kategoriId)->findAll();
+        return $this->response->setJSON($subKategori);
+    }
 
-    //     public function addProduk()
-    //     {
-    //         $idFlashSale = $this->request->getPost('ID_FlashSale');
-    //         if ($idFlashSale === '') {
-    //             $idFlashSale = null;
-    //         }
+    public function addProduk()
+    {
+        $idFlashSale = $this->request->getPost('ID_FlashSale');
+        if ($idFlashSale === '') {
+            $idFlashSale = null;
+        }
 
-    //         if ($idFlashSale !== null && !$this->FlashSaleModel->find($idFlashSale)) {
-    //             return redirect()->back()->with('error', 'Invalid Flash Sale ID');
-    //         }
+        if ($idFlashSale !== null && !$this->FlashSaleModel->find($idFlashSale)) {
+            return redirect()->back()->with('error', 'Invalid Flash Sale ID');
+        }
 
-    //         // Handle image upload
-    //         $img = $this->request->getFile('gambar');
-    //         if ($img->isValid() && !$img->hasMoved()) {
-    //             if ($img->getExtension() == 'jpg' || $img->getMimeType() == 'image/jpeg') {
-    //                 $newName = $img->getRandomName();
-    //                 $img->move('public/images', $newName);
-    //                 $imagePath = 'public/images/' . $newName;
-    //             } else {
-    //                 // Handle invalid file type
-    //                 return redirect()->back()->with('error', 'Please upload a valid JPG image.');
-    //             }
-    //         } else {
-    //             // Handle file upload error
-    //             return redirect()->back()->with('error', 'Error in uploading image.');
-    //         }
+        // Handle image upload
+        $img = $this->request->getFile('gambar');
+        if ($img->isValid() && !$img->hasMoved()) {
+            if ($img->getExtension() == 'jpg' || $img->getMimeType() == 'image/jpeg') {
+                $newName = $img->getRandomName();
+                $img->move('public/images', $newName);
+                $imagePath = 'public/images/' . $newName;
+            } else {
+                // Handle invalid file type
+                return redirect()->back()->with('error', 'Please upload a valid JPG image.');
+            }
+        } else {
+            // Handle file upload error
+            return redirect()->back()->with('error', 'Error in uploading image.');
+        }
 
-    //         // Prepare other data for database insertion
-    //         $data = [
-    //             'ID_Produk' => $this->request->getPost('ID_Produk'),
-    //             'Kode_Diskon' => $this->request->getPost('Kode_Diskon'),
-    //             'ID_SubKategori' => $this->request->getPost('ID_SubKategori'),
-    //             'ID_FlashSale' => $idFlashSale, // Using the processed ID
-    //             'Nama_Barang' => $this->request->getPost('Nama_Barang'),
-    //             'Harga_Barang' => $this->request->getPost('Harga_Barang'),
-    //             'Deskripsi_Belanja' => $this->request->getPost('deskripsi'),
-    //             'Gambar' => $imagePath, // Using the image path
-    //             'stok' => $this->request->getPost('stok'),
-    //         ];
+        // Prepare other data for database insertion
+        $data = [
+            'ID_Produk' => $this->request->getPost('ID_Produk'),
+            'Kode_Diskon' => $this->request->getPost('Kode_Diskon'),
+            'ID_SubKategori' => $this->request->getPost('ID_SubKategori'),
+            'ID_Flash_Sale' => $idFlashSale, // Using the processed ID
+            'Nama_Barang' => $this->request->getPost('Nama_Barang'),
+            'Harga_Barang' => $this->request->getPost('Harga_Barang'),
+            'ID_Kategori' => $this->request->getPost('ID_Kategori'),
+            'Deskripsi_Barang' => $this->request->getPost('deskripsi'),
+            'Gambar' => $imagePath, // Using the image path
+            'Stok' => $this->request->getPost('stok'),
+        ];
+        try {
+            $this->ProdukModel->insertProduk($data);
+            return redirect()->to('/edit-produk')->with('success', 'Produk berhasil ditambahkan.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
+    }
 
-    //         $this->ProdukModel->insertProduk($data);
-
-    //         return redirect()->to('/edit-produk');
-    //     }
-
-    //     //=================end=======================
+    //=================end=======================
 
     //=================Payment=======================
     public function editPembayaran(): string
@@ -335,16 +339,21 @@ class AdminController extends BaseController
     //=========================Kategori=========================
     public function editKategori()
     {
+
+
         $data = [
             'title' => 'OttenCoffe | Edit Kategori',
             'kategori' => $this->KategoriProdukModel->getKategoriWithSubKategori(),
             'allKategori' => $this->KategoriProdukModel->findAll(),
         ];
+
         return view('admin/editKategori', $data);
     }
 
     public function addKategori()
     {
+
+
         $kategoriNama = $this->request->getPost('kategoriNama');
         $kategoriId = $this->request->getPost('kategoriId');
         $this->KategoriProdukModel->insert([
@@ -360,7 +369,7 @@ class AdminController extends BaseController
         $subkategoriId = $this->request->getPost('subkategoriId');
         $kategoriId = $this->request->getPost('kategoriId');
         $subkategoriNama = $this->request->getPost('subkategoriNama');
-        $gambar = $this->request->getPost('gambar');
+
 
         $subKategoriModel = new SubKategoriProdukModel();
 
@@ -370,12 +379,27 @@ class AdminController extends BaseController
             session()->setFlashdata('error', 'ID Subkategori sudah ada.');
             // return redirect()->to('/edit-kategori');
         }
+        $img = $this->request->getFile('gambar');
+        if ($img !== null && $img->isValid() && !$img->hasMoved()) {
+            if ($img->getExtension() == 'jpg' || $img->getMimeType() == 'image/jpeg') {
+                $newName = $img->getRandomName();
+                $img->move('public/images', $newName);
+                $imagePath = 'public/images/' . $newName;
+            } else {
+                // Handle invalid file type
+                return redirect()->back()->with('error', 'Please upload a valid JPG image.');
+            }
+        } else {
+            // Handle no file uploaded or file upload error
+            return redirect()->back()->with('error', 'Error in uploading image or no image uploaded.');
+        }
+
 
         $subKategoriModel->insert([
             'ID_Kategori' => $kategoriId,
             'ID_SubKategori' => $subkategoriId,
             'Nama' => $subkategoriNama,
-            'Gambar' => $gambar,
+            'Gambar' => $imagePath,
         ]);
 
         session()->setFlashdata('success', 'Subkategori berhasil ditambahkan.');
@@ -399,7 +423,7 @@ class AdminController extends BaseController
     public function hapusSubKategori($id)
     {
         if (empty($id) || !is_numeric($id)) {
-        session()->setFlashdata('error', 'Invalid Subcategory ID');
+            session()->setFlashdata('error', 'Invalid Subcategory ID');
             return redirect()->to('/edit-kategori');
         }
 
