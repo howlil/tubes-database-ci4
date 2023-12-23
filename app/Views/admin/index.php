@@ -24,41 +24,30 @@
                         <th scope="col">Aksi</th>
                     </tr>
                 </thead>
-                <h2>Daftar Kategori dan Sub Kategori</h2>
-                <table class="table">
-                    <thead>
+                <tbody>
+                    <?php $shownIds = []; ?>
+                    <?php foreach ($produk as $p) : ?>
+                        <?php if (in_array($p['ID_Produk'], $shownIds)) continue; ?>
+                        <?php $shownIds[] = $p['ID_Produk']; ?>
                         <tr>
-                            <th>Kategori</th>
-                            <th>Subkategori</th>
-                            <th>Gambar Subkategori</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($kategori as $kat) : ?>
-                        <tr>
-                            <td><?= htmlspecialchars($kat['Nama']) ?></td>
-                            <td><?= htmlspecialchars($kat['SubKategoriNama']) ?></td>
+                            <td><?= $p['ID_Produk']; ?></td>
+                            <td><?= htmlspecialchars($p['Nama_Barang']); ?></td>
+                            <td><?= $p['NamaFlashSale'] ?? 'Tidak Ada'; ?></td>
+                            <td><?= $p['Kode_Diskon'] ? htmlspecialchars($p['Kode_Diskon']) : 'Tidak Ada'; ?></td>
+                            <td><?= htmlspecialchars($p['Harga_Barang']); ?></td>
+                            <td><?= htmlspecialchars($p['Deskripsi_Barang']); ?></td>
+                            <td><?= htmlspecialchars($p['KategoriNama']); ?></td>
+                            <td><?= htmlspecialchars($p['NamaSubKategori'] ?? 'Subkategori Tidak Diketahui'); ?></td>
+                            <td><?= htmlspecialchars($p['Stok']); ?></td>
                             <td>
-                                <?php if (isset($kat['Gambar']) && $kat['Gambar'] != '') : ?>
-                                <img src="<?= base_url('public/images/' . htmlspecialchars($kat['Gambar'])); ?>"
-                                    alt="Subkategori Image" style="max-width: 100px; max-height: 100px;">
-                                <?php else : ?>
-                                <p>Gambar tidak tersedia</p>
-                                <?php endif; ?>
+                                <img src="<?= $p['Gambar'] ?>" alt="<?= $p['Nama_Barang'] ?>" width="50">
                             </td>
                             <td>
-                                <?php if (isset($kat['ID_SubKategori'])) : ?>
-                                <a href="<?= base_url('/hapus-subkategori/' . $kat['ID_SubKategori']) ?>"
-                                    class="btn btn-danger btn-sm">Hapus Subkategori</a>
-                                <?php endif; ?>
-                                <a href="<?= base_url('/hapus-kategori/' . $kat['ID_Kategori']) ?>"
-                                    class="btn btn-danger">Hapus Kategori</a>
+                                <a href="<?= base_url('/hapus-produk/' . $p['ID_Produk']); ?>" class="btn btn-danger btn-sm">Hapus</a>
                             </td>
                         </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                    <?php endforeach; ?>
+                </tbody>
             </table>
         </div>
     </div>

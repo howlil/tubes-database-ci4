@@ -43,14 +43,10 @@
                     <label for="subkategoriNama" class="form-label">Nama Subkategori</label>
                     <input type="text" class="form-control" id="subkategoriNama" name="subkategoriNama" required>
                 </div>
-                <div class="mb-3">
-                    <label for="gambar" class="form-label">Gambar</label>
-                    <input class="form-control" type="file" id="gambar" name="gambar" required>
-                </div>
+
                 <button type="submit" class="btn btn-primary">Tambah Subkategori</button>
             </form>
         </div>
-        <?php if (!empty($kategori)) : ?>
         <div class="my-5">
             <h2>Daftar Kategori dan Sub Kategori</h2>
             <table class="table">
@@ -58,66 +54,59 @@
                     <tr>
                         <th>Kategori</th>
                         <th>Subkategori</th>
-                        <th>Gambar Subkategori</th>
+                        <th>hapus Subkategori</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-    $kategoriTerlihat = []; // Untuk menyimpan kategori yang sudah ditampilkan
-    foreach ($kategori as $kat) :
-        if (!in_array($kat['Nama'], $kategoriTerlihat)) {
-            $kategoriTerlihat[] = $kat['Nama']; // Tandai kategori ini sebagai ditampilkan
-            ?>
+                    $kategoriTerlihat = []; // Untuk menyimpan kategori yang sudah ditampilkan
+                    foreach ($kategori as $item) :
+                        if (!in_array($item['Nama'], $kategoriTerlihat)) {
+                            $kategoriTerlihat[] = $item['Nama']; // Tandai kategori ini sebagai ditampilkan
+                    ?>
                     <tr>
-                        <td><?= htmlspecialchars($kat['Nama']) ?></td>
+                        <td><?= htmlspecialchars($item['Nama']) ?></td>
                         <td>
                             <?php
-                                // Menampilkan semua subkategori untuk kategori ini
-                                foreach ($kategori as $subItem) {
-                                    if ($subItem['Nama'] == $kat['Nama']) {
-                                        echo htmlspecialchars($subItem['SubKategoriNama']);
-
-                                        // Cek jika ID_SubKategori ada sebelum menampilkan tombol hapus
-                                        if (isset($subItem['ID_SubKategori'])) {
-                                            echo ' <a href="' . base_url('/hapus-subkategori/' . $subItem['ID_SubKategori']) . '" class="btn btn-danger btn-sm">Hapus</a>';
+                                    // Menampilkan semua subkategori dan gambar untuk kategori ini
+                                    foreach ($kategori as $subItem) {
+                                        if ($subItem['Nama'] == $item['Nama']) {
+                                            echo htmlspecialchars($subItem['SubKategoriNama']);
+                                            if (isset($subItem['Gambar']) && !empty($subItem['Gambar'])) :
+                                                echo '<br><img src="' . base_url('public/img/' . $subItem['Gambar']) . '" width="50" height="50">';
+                                            endif;
+                                            echo '<br>  <br>';
                                         }
-                                        echo '<br>';
                                     }
-                                }
-                            ?>
-
-
+                                    ?>
                         </td>
                         <td>
-                            <?php foreach ($kategori as $k) : ?>
-                            <?php if (isset($k['Gambar'])): ?>
-                            <img src="<?= base_url('public/images/' . htmlspecialchars($k['Gambar'])); ?>"
-                                alt="Kategori Image" style="max-width: 100px; max-height: 100px;">
-                            <?php else: ?>
-                            <p>Gambar tidak tersedia</p>
-                            <?php endif; ?>
-                            <?php endforeach; ?>
-
+                            <?php
+                                    foreach ($kategori as $subItem) {
+                                        if ($subItem['ID_Kategori'] == $item['ID_Kategori'] && isset($subItem['ID_SubKategori'])) {
+                                            echo ' <a href="' . base_url('/hapus-subkategori/' . $subItem['ID_SubKategori']) . '" class="btn btn-danger btn-sm">Hapus</a>';
+                                            echo '<br>  <br>';
+                                        }
+                                    }
+                                    ?>
                         </td>
                         <td>
-                            <a href="<?= base_url('/hapus-kategori/' . $kat['ID_Kategori']) ?>"
+                            <!-- Logic untuk tombol hapus kategori -->
+                            <a href="<?= base_url('/hapus-kategori/' . $item['ID_Kategori']) ?>"
                                 class="btn btn-danger">Hapus Kategori</a>
                         </td>
                     </tr>
                     <?php
-        }
-    endforeach;
-    ?>
+                        }
+                    endforeach;
+                    ?>
                 </tbody>
+
 
             </table>
         </div>
-        <?php endif; ?>
-
 
     </div>
-
-</div>
 </div>
 <?= $this->endSection() ?>

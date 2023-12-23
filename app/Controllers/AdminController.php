@@ -346,7 +346,7 @@ class AdminController extends BaseController
             'kategori' => $this->KategoriProdukModel->getKategoriWithSubKategori(),
             'allKategori' => $this->KategoriProdukModel->findAll(),
         ];
-
+     
         return view('admin/editKategori', $data);
     }
 
@@ -369,42 +369,26 @@ class AdminController extends BaseController
         $subkategoriId = $this->request->getPost('subkategoriId');
         $kategoriId = $this->request->getPost('kategoriId');
         $subkategoriNama = $this->request->getPost('subkategoriNama');
-
-
+    
         $subKategoriModel = new SubKategoriProdukModel();
-
+    
         $existingSubkategori = $subKategoriModel->find($subkategoriId);
         if ($existingSubkategori) {
-
             session()->setFlashdata('error', 'ID Subkategori sudah ada.');
-            // return redirect()->to('/edit-kategori');
+            return redirect()->to('/edit-kategori');
         }
-        $img = $this->request->getFile('gambar');
-        if ($img !== null && $img->isValid() && !$img->hasMoved()) {
-            if ($img->getExtension() == 'jpg' || $img->getMimeType() == 'image/jpeg') {
-                $newName = $img->getRandomName();
-                $img->move('public/images', $newName);
-                $imagePath = 'public/images/' . $newName;
-            } else {
-                // Handle invalid file type
-                return redirect()->back()->with('error', 'Please upload a valid JPG image.');
-            }
-        } else {
-            // Handle no file uploaded or file upload error
-            return redirect()->back()->with('error', 'Error in uploading image or no image uploaded.');
-        }
-
-
+    
+        // Insert data ke database
         $subKategoriModel->insert([
             'ID_Kategori' => $kategoriId,
             'ID_SubKategori' => $subkategoriId,
             'Nama' => $subkategoriNama,
-            'Gambar' => $imagePath,
         ]);
-
+    
         session()->setFlashdata('success', 'Subkategori berhasil ditambahkan.');
         return redirect()->to('/edit-kategori');
     }
+    
 
     public function hapusKategori($id)
     {
