@@ -176,7 +176,7 @@
                             <div class="d-grid  mt-3 col-12 mx-auto">
                                 <button class="btn " type="button">
                                     <a class="btnc" href="/checkout/pengiriman">Beli</a>
-                                </button>
+                                </button>s
                             </div>
                         </div>
                     </div>

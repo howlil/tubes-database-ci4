@@ -22,7 +22,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="tanggalMulai" class="form-label">Tanggal Mulai</label>
-                    <input type="date" class="form-control" id="tanggalMulai" name="tanggalMulai" required>
+                    <input type="date" pattern="\d{4}-\d{2}-\d{2}" class=" form-control" id="tanggalMulai" name="tanggalMulai" required>
                 </div>
                 <div class="mb-3">
                     <label for="tanggalBerakhir" class="form-label">Tanggal Berakhir</label>
@@ -45,18 +45,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($diskon as $d): ?>
-                        <tr>
-                            <td><?= htmlspecialchars($d['Kode_Diskon']) ?></td>
-                            <td><?= htmlspecialchars($d['Nilai']) ?></td>
-                            <td><?= htmlspecialchars($d['Tanggal_Mulai']) ?></td>
-                            <td><?= htmlspecialchars($d['Tanggal_Berakhir']) ?></td>
-                            <td>
-                                <a href="<?= base_url('/hapus-diskon/' . $d['Kode_Diskon']) ?>"
-                                    class="btn btn-danger btn-sm">Hapus</a>
+                        <?php foreach ($diskon as $d) : ?>
+                            <tr>
+                                <td><?= htmlspecialchars($d['Kode_Diskon']) ?></td>
+                                <td><?= htmlspecialchars($d['Nilai']) ?></td>
+                                <td><?= htmlspecialchars($d['Tanggal_Mulai']) ?></td>
+                                <td><?= htmlspecialchars($d['Tanggal_Berakhir']) ?></td>
+                                <td>
+                                    <a href="<?= base_url('/hapus-diskon/' . $d['Kode_Diskon']) ?>" class="btn btn-danger btn-sm">Hapus</a>
 
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
@@ -65,4 +64,4 @@
 
     </div>
 </div>
-<?= $this->endSection() ?>
+<?= $this->endSection() ?>`

@@ -8,17 +8,15 @@ class SubKategoriProdukModel extends Model
 {
     protected $table = 'sub_kategori';
     protected $primaryKey = 'ID_SubKategori';
-    protected $allowedFields = ['ID_SubKategori','ID_Kategori', 'Nama'];
+    protected $allowedFields = ['ID_SubKategori','ID_Kategori', 'Nama','Gambar'];
     protected $returnType = 'array';
     protected $useTimestamps = false;
     
-    public function getSubKategoriWithKategori()
-    {
-        return $this->db->table($this->table)
-                        ->join('kategori', 'kategori.ID_Kategori = sub_kategori.ID_Kategori')
-                        ->select('sub_kategori.*, kategori.Nama as NamaKategori')
-                        ->get()
-                        ->getResultArray();
-    }
 
+    public function findByCompositeKey($subkategoriId, $kategoriId) {
+        return $this->where('ID_SubKategori', $subkategoriId)
+                    ->where('ID_Kategori', $kategoriId)
+                    ->first();
+    }
+    
 }

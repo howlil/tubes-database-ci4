@@ -24,8 +24,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="nilaiFlashSale" class="form-label">Nilai Flash Sale</label>
-                    <input type="number" step="0.01" class="form-control" id="nilaiFlashSale" name="nilaiFlashSale"
-                        required>
+                    <input type="number" step="0.01" class="form-control" id="nilaiFlashSale" name="nilaiFlashSale" required>
                 </div>
                 <div class="mb-3">
                     <label for="namaFlashSale" class="form-label"> Nama Flsh Sale</label>
@@ -49,18 +48,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($flashsale as $sale): ?>
-                        <tr>
-                            <td><?= htmlspecialchars($sale['ID_FlashSale']) ?></td>
-                            <td><?= htmlspecialchars($sale['Waktu_Mulai']) ?></td>
-                            <td><?= htmlspecialchars($sale['Waktu_Berakhir']) ?></td>
-                            <td><?= htmlspecialchars($sale['Nilai']) ?></td>
-                            <td><?= htmlspecialchars($sale['Nama']) ?></td>
-                            <td>
-                                <a href="<?= base_url('/hapus-flash-sale/' . $sale['ID_FlashSale']) ?>"
-                                    class="btn btn-danger btn-sm">Hapus</a>
-                            </td>
-                        </tr>
+                        <?php foreach ($flashsale as $sale) : ?>
+                            <tr>
+                                <td><?= htmlspecialchars($sale['ID_Flash_Sale']) ?></td>
+                                <td><?= htmlspecialchars($sale['Waktu_Mulai']) ?></td>
+                                <td><?= htmlspecialchars($sale['Waktu_Berakhir']) ?></td>
+                                <td><?= htmlspecialchars($sale['Nilai']) ?></td>
+                                <td><?= htmlspecialchars($sale['Nama']) ?></td>
+                                <td>
+                                    <a href="<?= base_url('/hapus-flash-sale/' . $sale['ID_Flash_Sale']) ?>" class="btn btn-danger btn-sm">Hapus</a>
+                                </td>
+                            </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>

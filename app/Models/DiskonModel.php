@@ -24,4 +24,6 @@ class DiskonModel extends Model
     {
         return $this->where('Kode_Diskon', $data)->delete();
     }
+
+  
 }

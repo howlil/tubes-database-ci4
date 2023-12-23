@@ -6,9 +6,9 @@ use CodeIgniter\Model;
 
 class SPHProdukModel extends Model
 {
-    protected $table = 'surat_perubahan_harga_produk';
-    protected $primaryKey = 'ID_Surat_Produk';
-    protected $allowedFields = ['Tanggal', 'Harga'];
+    protected $table = 'surat_perubahan_harga';
+    protected $primaryKey = 'ID_Surat_Perubahan';
+    protected $allowedFields = ['ID_Surat_Perubahan','Tanggal'];
     protected $returnType = 'array';
     protected $useTimestamps = true;
 }

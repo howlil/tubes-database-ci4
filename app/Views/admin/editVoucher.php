@@ -21,8 +21,17 @@
                     <input type="number" step="0.01" class="form-control" id="nilai" name="nilai" required>
                 </div>
                 <div class="mb-3">
-                    <label for="jenis" class="form-label">Jenis Voucher</label>
+                    <label for="jenis" class="form-label">Nama Voucher</label>
                     <input type="text" class="form-control" id="jenis" name="jenis" required>
+                </div>
+                <div class="mb-3">
+                    <label for="tanggalMulai" class="form-label">Tanggal Mulai</label>
+                    <input type="date" pattern="\d{4}-\d{2}-\d{2}" class=" form-control" id="tanggalMulai"
+                        name="tanggalMulai" required>
+                </div>
+                <div class="mb-3">
+                    <label for="tanggalBerakhir" class="form-label">Tanggal Berakhir</label>
+                    <input type="date" class="form-control" id="tanggalBerakhir" name="tanggalBerakhir" required>
                 </div>
                 <button type="submit" class="btn btn-primary mb-5">Tambah Voucher</button>
             </form>
@@ -34,18 +43,22 @@
                     <tr>
                         <th>Kode Voucher</th>
                         <th>Nilai</th>
-                        <th>Jenis</th>
+                        <th>Nama Voucher</th>
+                        <th> Tanggal Mulai</th>
+                        <th>Tanggal Berakhir</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($voucher as $v) : ?>
                     <tr>
-                        <td><?= htmlspecialchars($v['Voucher']); ?></td>
+                        <td><?= htmlspecialchars($v['ID_Voucher']); ?></td>
                         <td><?= htmlspecialchars($v['Nilai']); ?></td>
-                        <td><?= htmlspecialchars($v['Jenis_Voucher']); ?></td>
+                        <td><?= htmlspecialchars($v['Nama_Voucher']); ?></td>
+                        <td><?= htmlspecialchars($v['Tanggal_Mulai']); ?></td>
+                        <td><?= htmlspecialchars($v['Tanggal_Berakhir']); ?></td>
                         <td>
-                            <a href="/hapus-voucher/<?= $v['Voucher']; ?>" class="btn btn-danger"><i
+                            <a href="/hapus-voucher/<?= $v['ID_Voucher']; ?>" class="btn btn-danger"><i
                                     class="bi bi-trash"></i>
                             </a>
                         </td>

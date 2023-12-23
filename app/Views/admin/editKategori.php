@@ -29,7 +29,7 @@
                     <label for="kategoriId" class="form-label">Kategori</label>
                     <select class="form-control" id="kategoriId" name="kategoriId">
                         <?php foreach ($allKategori as $kat) : ?>
-                        <?php if (isset($kat['Nama'])): ?>
+                        <?php if (isset($kat['Nama'])) : ?>
                         <option value="<?= $kat['ID_Kategori']; ?>"
                             <?= isset($kategoriId) && $kategoriId == $kat['ID_Kategori'] ? 'selected' : '' ?>>
                             <?= htmlspecialchars($kat['Nama']); ?>
@@ -43,6 +43,10 @@
                     <label for="subkategoriNama" class="form-label">Nama Subkategori</label>
                     <input type="text" class="form-control" id="subkategoriNama" name="subkategoriNama" required>
                 </div>
+                <div class="mb-3">
+                    <label for="gambar" class="form-label">Gambar</label>
+                    <input class="form-control" type="file" id="gambar" name="gambar" required>
+                </div>
                 <button type="submit" class="btn btn-primary">Tambah Subkategori</button>
             </form>
         </div>
@@ -54,30 +58,57 @@
                     <tr>
                         <th>Kategori</th>
                         <th>Subkategori</th>
+                        <th>Gambar Subkategori</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($kategori as $kat): ?>
+                    <?php
+        $kategoriTerlihat = []; // Untuk menyimpan kategori yang sudah ditampilkan
+        foreach ($kategori as $kat) :
+            if (!in_array($kat['Nama'], $kategoriTerlihat)) {
+                $kategoriTerlihat[] = $kat['Nama']; // Tandai kategori ini sebagai ditampilkan
+                ?>
                     <tr>
-                        <td><?= htmlspecialchars($kat['KategoriNama']) ?></td>
+                        <td><?= htmlspecialchars($kat['Nama']) ?></td>
                         <td>
-                            <?= !empty($kat['SubKategoriNama']) ? htmlspecialchars($kat['SubKategoriNama']) : 'Tidak ada subkategori' ?>
-                            <?php if (!empty($kat['ID_SubKategori'])): ?>
-                            <a href="<?= base_url('/hapus-subkategori/' . $kat['ID_SubKategori']) ?>"
+                            <?php if (isset($kat['SubKategori']) && is_array($kat['SubKategori'])): ?>
+                            <?php foreach ($kat['SubKategori'] as $subkat): ?>
+                            <?= htmlspecialchars($subkat['SubKategoriNama']) ?>
+                            <?php if (isset($subkat['ID_SubKategori'])): ?>
+                            <a href="<?= base_url('/hapus-subkategori/' . $subkat['ID_SubKategori']) ?>"
                                 class="btn btn-danger btn-sm">Hapus</a>
                             <?php endif; ?>
+                            <br>
+                            <?php endforeach; ?>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <?php
+                        foreach ($kategori as $subkat) {
+                            if ($subkat['Nama'] == $kat['Nama'] && isset($subkat['Gambar']) && !empty($subkat['Gambar'])) {
+                                // Menampilkan gambar
+                                echo '<img src="' . base_url('public/img/' . $subkat['Gambar']) . '" width="50" height="50"><br>';
+                            }
+                        }
+                        ?>
                         </td>
                         <td>
                             <a href="<?= base_url('/hapus-kategori/' . $kat['ID_Kategori']) ?>"
                                 class="btn btn-danger">Hapus Kategori</a>
                         </td>
                     </tr>
-                    <?php endforeach; ?>
+                    <?php
+            }
+        endforeach;
+    ?>
                 </tbody>
+
+
             </table>
         </div>
         <?php endif; ?>
+
 
     </div>
 
