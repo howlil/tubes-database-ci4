@@ -16,8 +16,10 @@ class RincianPemesananModel extends Model
     {
         return $this->insert($data);
     }
-    public function getKeranjang()
+    public function getProdukInKeranjang()
     {
-        return $this->db->table('rincian_pemesanan')->get()->getResultArray();
+        $builder = $this->db->table('rincian_pemesanan');
+        $builder->join('produk', 'rincian_pemesanan.ID_Produk = produk.ID_Produk');
+        return $builder->get()->getResultArray();
     }
 }

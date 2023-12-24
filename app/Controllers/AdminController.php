@@ -375,7 +375,7 @@ class AdminController extends BaseController
         $existingSubkategori = $subKategoriModel->find($subkategoriId);
         if ($existingSubkategori) {
             session()->setFlashdata('error', 'ID Subkategori sudah ada.');
-            return redirect()->to('/edit-kategori');
+            // return redirect()->to('/edit-kategori');
         }
     
         // Insert data ke database

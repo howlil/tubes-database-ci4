@@ -13,7 +13,7 @@ $routes->get('/checkout/pengiriman', 'UserController::checkout');
 $routes->get('/checkout/pembayaran', 'UserController::bayar');
 
 //============== kategori ======================
-$routes->get('/ketegori', 'UserController::kategori');
+$routes->get('/kategori', 'UserController::kategori');
 //==============end======================
 
 $routes->get('/keranjang', 'UserController::keranjang');

@@ -19,4 +19,6 @@ class KategoriProdukModel extends Model
         $builder->join('sub_kategori', 'sub_kategori.ID_Kategori = kategori.ID_Kategori', 'left');
         return $builder->get()->getResultArray();
     }
+
+  
 }

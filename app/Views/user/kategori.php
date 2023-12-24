@@ -51,25 +51,24 @@
         <div class="product d-flex mb-5 flex-column">
             <div class="product-grid">
                 <?php foreach ($produk as $p) : ?>
-                <div class="product-card">
+                <div class="product-card d-flex flex-column justify-content-between">
                     <div class="product-image">
                         <img src="<?= $p['Gambar'] ?>" alt="<?= $p['Nama_Barang'] ?>">
                     </div>
-                    <div class="product-details d-flex flex-column ">
-                        <h3><?= $p['Nama_Barang'] ?></h3>
+                    <div class="product-details d-flex flex-column justify-content-between">
+                        <h6 class="lh-2"><?= $p['Nama_Barang'] ?></h6>
                         <div class="product-price"><?= $p['Harga_Barang'] ?></div>
 
 
                         <form action="<?= base_url('/add-keranjang') ?>" method="post">
                             <input type="hidden" name="product_id" value="<?= $p['ID_Produk']; ?>">
                             <input type="hidden" name="product_price" value="<?= $p['Harga_Barang']; ?>">
+                            <input type="hidden" name="ID_Pesan" value="<?= session()->get('ID_Pesan'); ?>">
 
-                            <div class="d-grid mt-3  mx-9 ">
-                                <button class="btn btn-success" type="submit" id="addKeranjang">+
-                                    Keranjang</button>
+                            <div class="d-grid mt-3 mx-9">
+                                <button class="btn btn-success" type="submit" id="addKeranjang">+ Keranjang</button>
                             </div>
                         </form>
-
 
                     </div>
 

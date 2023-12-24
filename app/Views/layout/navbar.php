@@ -89,43 +89,33 @@
                         </span>
                     </a>
 
-
                     <div class="cart-summary position-absolute">
                         <div class="d-flex flex-column align-items-start p-3 bg-white border rounded">
-                            <?php if (isset($produkcart)) : ?>
-                            <?php foreach ($produkcart as $produk) : ?>
-                            <h6 class="text-dark fw-bold mb-1">Subtotal </h6>
+                            <?php if (!empty($produkcart)) : ?>
+                            <h6 class="text-dark fw-bold mb-1">Subtotal: <span id="subtotalCart"></span></h6>
                             <hr>
-                            <div class="d-flex justify-content-between w-100">
-
-                            </div>
-                            <div class="product-in-cart d-flex gap-2">
-                                <img src="<?= $produk['Gambar']; ?>" alt="<?= $produk['Nama_Barang']; ?>">
+                            <?php foreach ($produkcart as $produk) : ?>
+                            <div class="product-in-cart d-flex gap-2 mb-2">
+                                <img src="<?= $produk['Gambar']; ?>" alt="<?= $produk['Nama_Barang']; ?>"
+                                    style="width: 50px; height: 50px;">
                                 <div>
                                     <p><?= $produk['Nama_Barang']; ?></p>
-                                    <p>Rp <?= number_format($produk['Harga_Barang'], 2, ',', '.'); ?></p>
+                                    <p>Rp <?= number_format($produk['Harga_Beli'], 2, ',', '.'); ?> x
+                                        <?= $produk['Jumlah_Barang']; ?></p>
                                 </div>
-
-                            </div>
-                            <div class=" d-flex flex-column justify-content-between align-items-end ">
-                                <i class="fa-solid fa-trash"></i>
-                                <div class="quantity-selector d-flex justify-content-center align-items-center gap-2">
-                                    <button class="btn btn-outline-success btn-quantity-change  p-0 m-0"
-                                        type="button">-</button>
-                                    <input type="text" class="form-control text-center quantity-input" value="1"
-                                        readonly>
-                                    <button class="btn btn-outline-success btn-quantity-change  p-0 m-0"
-                                        type="button">+</button>
+                                <div class="ms-auto">
+                                    <a href="<?= base_url('/hapus-dari-keranjang/' . $produk['ID']); ?>"
+                                        class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                                 </div>
-
                             </div>
-                            <button class="btn btn-success d-grid  mt-3 col-12 mx-auto">
+                            <?php endforeach; ?>
+                            <button class="btn btn-success d-grid col-12 mx-auto mt-2">
                                 <a class="text-decoration-none text-white" href="/keranjang">Lihat Keranjang</a>
                             </button>
-                            <?php endforeach; ?>
+                            <?php else : ?>
+                            <p>Keranjang kosong</p>
                             <?php endif; ?>
                         </div>
-
                     </div>
 
 
@@ -157,7 +147,6 @@
             </ul>
         </div>
     </div>
-
     <div class="category-sidebar">
         <div class="category-content ">
             <div class="container  ">
@@ -167,13 +156,13 @@
                         <?php foreach ($kategori as $kat) : ?>
                         <li class="category-item" data-kategori="<?= $kat['ID_Kategori']; ?>">
                             <a href="#">
-                                <h5><?= $kat['Nama']; ?></h5>
+                                <h5><?= htmlspecialchars($kat['Nama']); ?></h5>
                             </a>
                         </li>
                         <?php endforeach; ?>
                     </ul>
 
-                    <!-- Subcategories -->
+
                     <div class="product-display">
                         <?php foreach ($subkategori as $subkat) : ?>
                         <div class="product-category " data-kategori="<?= $subkat['ID_Kategori']; ?>">
@@ -183,7 +172,6 @@
                                 <h6 class="p-0 m-0"><?= $subkat['Nama']; ?></h6>
                             </a>
 
-
                         </div>
                         <?php endforeach; ?>
                     </div>
@@ -192,6 +180,17 @@
             </div>
         </div>
     </div>
+
+    <script>
+    let subtotal = 0;
+    document.querySelectorAll('.product-in-cart').forEach((product) => {
+        const price = parseFloat(product.querySelector('.product-price').textContent.replace('Rp ', '').replace(
+            ',', '.'));
+        const quantity = parseInt(product.querySelector('.quantity-input').value);
+        subtotal += price * quantity;
+    });
+    document.getElementById('subtotalCart').textContent = `Rp ${subtotal.toFixed(2).replace('.', ',')}`;
+    </script>
 
 
 
