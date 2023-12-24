@@ -121,33 +121,54 @@
 
                 </li>
 
-                <li class="nav-item dropdown no-arrow" id="userDropdown">
+                <?php if (logged_in()) : ?>
+                <li class="nav-item dropdown no-arrow ms-5" id="userDropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
-                        <span class="mr-2 d-none d-lg-inline text-gray-600 small"></span>
                         <img src="https://d8g5mz6srwlcs.cloudfront.net/v3.59.0/images/default-profile.png"
                             alt="Image default profile" class="rounded-circle" style="width: 32px;">
                     </a>
                     <!-- Dropdown - User Information -->
+                    <?php if (in_groups('admin')) : ?>
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                         aria-labelledby="userDropdown">
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/login" data-toggle="modal" data-target="#logoutModal">
-                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Setiting Akun
+                        <a class="dropdown-item" href="<?= base_url('/dashboard') ?>">
+                            <i class="fas fa-cog fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Kelola Web
                         </a>
+
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/login" data-toggle="modal" data-target="#logoutModal">
+                        <a class="dropdown-item" href="<?= base_url('/logout') ?>">
                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                             Logout
                         </a>
                     </div>
+                    <?php else : ?>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                        aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="<?= base_url('/settings') ?>">
+                            <i class="fas fa-cog fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Setting Akun
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="<?= base_url('/logout') ?>">
+                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Logout
+                        </a>
+                    </div>
+                    <?php endif; ?>
                 </li>
+                <?php else : ?>
+                <li class="nav-item ms-5">
+                    <a style="background-color: #6dbf67;" class="btn text-white fw-boldp "
+                        href="<?= base_url('/login') ?>">Login</a>
+                </li>
+                <?php endif; ?>
 
             </ul>
         </div>
     </div>
-    <div class="category-sidebar">
+    <div class="category-sidebar mt-3">
         <div class="category-content ">
             <div class="container  ">
                 <div class="category-list-container d-flex gap-4 ">
@@ -155,7 +176,7 @@
                     <ul class="category-list">
                         <?php foreach ($kategori as $kat) : ?>
                         <li class="category-item" data-kategori="<?= $kat['ID_Kategori']; ?>">
-                            <a href="#">
+                            <a href="<?= base_url('/kategori')?>">
                                 <h5><?= htmlspecialchars($kat['Nama']); ?></h5>
                             </a>
                         </li>
@@ -163,11 +184,12 @@
                     </ul>
 
 
-                    <div class="product-display">
+                    <div class=" product-display">
                         <?php foreach ($subkategori as $subkat) : ?>
                         <div class="product-category " data-kategori="<?= $subkat['ID_Kategori']; ?>">
 
-                            <a class="text-secondary d-flex gap-3 align-items-centern py-2 px-3 " href="#">
+                            <a class="text-secondary d-flex gap-3 align-items-centern py-2 px-3 "
+                                href="<?= base_url('/kategori')?>">
                                 <i class="fas fa-coffee"></i>
                                 <h6 class="p-0 m-0"><?= $subkat['Nama']; ?></h6>
                             </a>

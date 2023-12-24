@@ -755,4 +755,16 @@
 
 .d-flex.justify-content-between.align-items-center .text-black {
   margin-left: 0.5rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.dsc {
+  line-height: 22px;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
 }/*# sourceMappingURL=main.css.map */

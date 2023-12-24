@@ -42,11 +42,15 @@ class UserController extends BaseController
 
     public function index(): string
     {
+        $session = session();
+        $isLoggedIn = $session->get('logged_in'); // Contoh, sesuaikan dengan cara Anda mengecek login
+
         $subkategoriModel = new SubKategoriProdukModel();
         $data = [
             'title' => 'OttenCoffe',
             'kategori' => $this->KategoriProdukModel->findAll(),
             'subkategori' => $subkategoriModel->getSubKategoriWithKategori(),
+            'logged_in' => $isLoggedIn,
         ];
 
         return view('user/index', $data);
@@ -57,9 +61,13 @@ class UserController extends BaseController
     //============Katgeori====================
     public function kategori()
     {
+        $subkategoriModel = new SubKategoriProdukModel();
+
         $data = [
             'title' => 'OttenCoffe | Kategori',
             'produk' => $this->ProdukModel->getProdukWithKategori(),
+            'kategori' => $this->KategoriProdukModel->findAll(),
+            'subkategori' => $subkategoriModel->getSubKategoriWithKategori(),
         ];
         return view('user/kategori', $data);
     }
@@ -68,51 +76,41 @@ class UserController extends BaseController
     //============Cart====================
     public function keranjang()
     {
-        $model = new RincianPemesananModel();
 
         $data = [
             'title' => 'OttenCoffe | Keranjang',
-            'produkcart' => $model->getProdukInKeranjang(), // Fungsi yang akan kita buat
         ];
         return view('user/keranjang', $data);
     }
 
     public function addKeranjang()
     {
-        $model = new RincianPemesananModel();
 
-        $data = [
-            'ID_Pesan' => $this->request->getPost('ID_Pesan'),
+
+        $pemesananModel = new PemesananModel();
+        $rincianPemesananModel = new RincianPemesananModel();
+
+        // Buat ID Pemesanan Baru
+        $idPesan = uniqid('pesan_');
+        $dataPemesanan = [
+            'ID_Pesan' => $idPesan,
+        ];
+        $pemesananModel->createPemesanan($dataPemesanan);
+
+        // Data untuk Rincian Pemesanan
+        $dataRincianPemesanan = [
+            'ID_Pesan' => $idPesan,
             'ID_Produk' => $this->request->getPost('product_id'),
             'Harga_Beli' => $this->request->getPost('product_price'),
-            'Jumlah_Barang' => 1, // atau nilai lain sesuai kebutuhan
+            'Jumlah_Barang' => 1, // atau sesuai dengan input user
         ];
-        
-        $model->insert($data);
-        return redirect()->to('/keranjang')->with('message', 'Produk berhasil ditambahkan ke keranjang');
+
+        $rincianPemesananModel->addKeranjang($dataRincianPemesanan);
+
+        return redirect()->to('/keranjang');
     }
 
-    public function hapusDariKeranjang($id)
-    {
-        $model = new RincianPemesananModel();
-        $model->delete($id);
-
-        return redirect()->to('/keranjang')->with('message', 'Produk berhasil dihapus dari keranjang');
-    }
-
-    public function showKeranjang()
-    {
-        $idPemesanan = session()->get('ID_Pesan');
-
-        if (is_null($idPemesanan)) {
-            return view('layout/navbar', ['produkcart' => []]);
-        }
-
-        $model = new RincianPemesananModel();
-        $produkcart = $model->where('ID_Pesan', $idPemesanan)->findAll();
-
-        return view('layout/navbar', ['produkcart' => $produkcart]);
-    }
+  
 
 
 

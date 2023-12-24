@@ -45,7 +45,6 @@
                 <button>Urutkan</button>
                 <button>Best Seller</button>
                 <button>Indonesia</button>
-                <button>International</button>
             </div>
         </div>
         <div class="product d-flex mb-5 flex-column">
@@ -63,8 +62,6 @@
                         <form action="<?= base_url('/add-keranjang') ?>" method="post">
                             <input type="hidden" name="product_id" value="<?= $p['ID_Produk']; ?>">
                             <input type="hidden" name="product_price" value="<?= $p['Harga_Barang']; ?>">
-                            <input type="hidden" name="ID_Pesan" value="<?= session()->get('ID_Pesan'); ?>">
-
                             <div class="d-grid mt-3 mx-9">
                                 <button class="btn btn-success" type="submit" id="addKeranjang">+ Keranjang</button>
                             </div>
@@ -76,35 +73,7 @@
                 <?php endforeach; ?>
             </div>
         </div>
-        <!-- The Modal -->
-        <div id="cartModal" class="modal">
 
-            <!-- Modal content -->
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>Tambahkan Ke Keranjang</h2>
-                <div class="modal-body">
-                    <div class="modal-product">
-                        <img src="/img/cb/cb-cremaExpreso.jpg" alt="Product Image">
-                        <div class="product-details">
-                            <p class="product-name">Crema Espresso - Kopi House Blend 500gr</p>
-                            <p class="product-price">Rp 119.000</p>
-                            <div class="quantity-selector">
-                                <button class="quantity-minus">-</button>
-                                <input type="number" value="1" class="quantity-input">
-                                <button class="quantity-plus">+</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <a href="/checkout/pengiriman"><button id="buyNowBtn">Beli Langsung</button></a>
-                        <a href=""> <button id="addToCartModalBtn">+ Keranjang</button></a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
     </div>
 
 </div>

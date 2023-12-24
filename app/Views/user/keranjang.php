@@ -59,7 +59,7 @@
                         </div>
                     </div>
 
-                    <?php foreach ($produk as $product): ?>
+                    <?php foreach ($produkcart as $product) : ?>
                     <div class="media m-4 d-flex mt-5 justify-content-between">
                         <div class="img-sec d-flex gap-2">
                             <label class="custom-checkbox-p">
@@ -176,7 +176,7 @@
                             <div class="d-grid  mt-3 col-12 mx-auto">
                                 <button class="btn " type="button">
                                     <a class="btnc" href="/checkout/pengiriman">Beli</a>
-                                </button>s
+                                </button>
                             </div>
                         </div>
                     </div>

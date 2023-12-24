@@ -27,25 +27,26 @@
                 <tbody>
                     <?php $shownIds = []; ?>
                     <?php foreach ($produk as $p) : ?>
-                        <?php if (in_array($p['ID_Produk'], $shownIds)) continue; ?>
-                        <?php $shownIds[] = $p['ID_Produk']; ?>
-                        <tr>
-                            <td><?= $p['ID_Produk']; ?></td>
-                            <td><?= htmlspecialchars($p['Nama_Barang']); ?></td>
-                            <td><?= $p['NamaFlashSale'] ?? 'Tidak Ada'; ?></td>
-                            <td><?= $p['Kode_Diskon'] ? htmlspecialchars($p['Kode_Diskon']) : 'Tidak Ada'; ?></td>
-                            <td><?= htmlspecialchars($p['Harga_Barang']); ?></td>
-                            <td><?= htmlspecialchars($p['Deskripsi_Barang']); ?></td>
-                            <td><?= htmlspecialchars($p['KategoriNama']); ?></td>
-                            <td><?= htmlspecialchars($p['NamaSubKategori'] ?? 'Subkategori Tidak Diketahui'); ?></td>
-                            <td><?= htmlspecialchars($p['Stok']); ?></td>
-                            <td>
-                                <img src="<?= $p['Gambar'] ?>" alt="<?= $p['Nama_Barang'] ?>" width="50">
-                            </td>
-                            <td>
-                                <a href="<?= base_url('/hapus-produk/' . $p['ID_Produk']); ?>" class="btn btn-danger btn-sm">Hapus</a>
-                            </td>
-                        </tr>
+                    <?php if (in_array($p['ID_Produk'], $shownIds)) continue; ?>
+                    <?php $shownIds[] = $p['ID_Produk']; ?>
+                    <tr>
+                        <td><?= $p['ID_Produk']; ?></td>
+                        <td class="dsc"><?= htmlspecialchars($p['Nama_Barang']); ?></td>
+                        <td><?= $p['NamaFlashSale'] ?? 'Tidak Ada'; ?></td>
+                        <td><?= $p['Kode_Diskon'] ? htmlspecialchars($p['Kode_Diskon']) : 'Tidak Ada'; ?></td>
+                        <td><?= htmlspecialchars($p['Harga_Barang']); ?></td>
+                        <td class="dsc"><?= htmlspecialchars($p['Deskripsi_Barang']); ?></td>
+                        <td><?= htmlspecialchars($p['KategoriNama']); ?></td>
+                        <td><?= htmlspecialchars($p['NamaSubKategori'] ?? 'Subkategori Tidak Diketahui'); ?></td>
+                        <td><?= htmlspecialchars($p['Stok']); ?></td>
+                        <td>
+                            <img src="<?= $p['Gambar'] ?>" alt="<?= $p['Nama_Barang'] ?>" width="50">
+                        </td>
+                        <td>
+                            <a href="<?= base_url('/hapus-produk/' . $p['ID_Produk']); ?>"
+                                class="btn btn-danger btn-sm">Hapus</a>
+                        </td>
+                    </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>

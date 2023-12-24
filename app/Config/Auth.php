@@ -15,7 +15,7 @@ class Auth extends \Myth\Auth\Config\Auth
      *
      * @var string
      */
-    public $defaultUserGroup;
+    public $defaultUserGroup ='user';
 
     /**
      * --------------------------------------------------------------------
@@ -187,6 +187,7 @@ class Auth extends \Myth\Auth\Config\Auth
      */
     // public $requireActivation = 'Myth\Auth\Authentication\Activators\EmailActivator';
     public $requireActivation = null;
+
     /**
      * --------------------------------------------------------------------
      * Allow Password Reset via Email
@@ -197,7 +198,8 @@ class Auth extends \Myth\Auth\Config\Auth
      *
      * @var string|null Name of the ResetterInterface class
      */
-    public $activeResetter = 'Myth\Auth\Authentication\Resetters\EmailResetter';
+    // public $activeResetter = 'Myth\Auth\Authentication\Resetters\EmailResetter';
+    public $activeResetter = null;
 
     /**
      * --------------------------------------------------------------------
@@ -313,7 +315,7 @@ class Auth extends \Myth\Auth\Config\Auth
      *
      * @var int
      */
-    public $minimumPasswordLength = 8;
+    public $minimumPasswordLength = 4;
 
     /**
      * --------------------------------------------------------------------
@@ -329,9 +331,9 @@ class Auth extends \Myth\Auth\Config\Auth
      * @var string[]
      */
     public $passwordValidators = [
-        'Myth\Auth\Authentication\Passwords\CompositionValidator',
-        'Myth\Auth\Authentication\Passwords\NothingPersonalValidator',
-        'Myth\Auth\Authentication\Passwords\DictionaryValidator',
+        // 'Myth\Auth\Authentication\Passwords\CompositionValidator',
+        // 'Myth\Auth\Authentication\Passwords\NothingPersonalValidator',
+        // 'Myth\Auth\Authentication\Passwords\DictionaryValidator',
         // 'Myth\Auth\Authentication\Passwords\PwnedValidator',
     ];
 
@@ -343,13 +345,13 @@ class Auth extends \Myth\Auth\Config\Auth
      * Available activators with config settings
      *
      * @var array
-     */
-    public $userActivators = [
-        'Myth\Auth\Authentication\Activators\EmailActivator' => [
-            'fromEmail' => null,
-            'fromName'  => null,
-        ],
-    ];
+    //  */
+    // public $userActivators = [
+    //     'Myth\Auth\Authentication\Activators\EmailActivator' => [
+    //         'fromEmail' => null,
+    //         'fromName'  => null,
+    //     ],
+    // ];
 
     /**
      * --------------------------------------------------------------------
@@ -360,12 +362,12 @@ class Auth extends \Myth\Auth\Config\Auth
      *
      * @var array
      */
-    public $userResetters = [
-        'Myth\Auth\Authentication\Resetters\EmailResetter' => [
-            'fromEmail' => null,
-            'fromName'  => null,
-        ],
-    ];
+    // public $userResetters = [
+    //     'Myth\Auth\Authentication\Resetters\EmailResetter' => [
+    //         'fromEmail' => null,
+    //         'fromName'  => null,
+    //     ],
+    // ];
 
     /**
      * --------------------------------------------------------------------
