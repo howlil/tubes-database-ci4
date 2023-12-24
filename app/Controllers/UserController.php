@@ -12,6 +12,7 @@ use App\Models\PemesananModel;
 use App\Models\RincianPemesananModel;
 use App\Models\MetodePembayaranModel; // Corrected class name
 use App\Models\MetodePengirimanModel;
+use App\Models\UserModel;
 
 class UserController extends BaseController
 {
@@ -56,7 +57,72 @@ class UserController extends BaseController
         return view('user/index', $data);
     }
 
+    // =============setting=====================
+    public function setting()
+    {
+        $session = session();
+        $userId = $session->get('userId');
+        $userModel = new UserModel();
+        $penggunaModel = new PenggunaModel();
 
+        $user = $userModel->find($userId);
+        if (!$user) {
+            // Handle user not found
+        }
+
+        $email = $user['email'];
+        $penggunaData = $penggunaModel->where('Email', $email)->first();
+
+        $data = [
+            'title' => 'Profile Setting',
+            'userData' => $penggunaData,
+        ];
+
+        return view('user/profile', $data);
+    }
+
+
+
+    public function updateProfile()
+    {
+        $model = new PenggunaModel();
+
+        // Assuming you have the user's email in your session
+        $userEmail = session()->get('userEmail');
+
+        $data = [
+            'Nama' => $this->request->getPost('nama'),
+            'Alamat' => $this->request->getPost('alamat')
+        ];
+
+        // Update data for the user with the given email
+        $model->where('Email', $userEmail)->set($data)->update();
+
+        return redirect()->to('/setting')->with('success', 'Profil berhasil diperbarui.');
+    }
+
+    public function transferEmail()
+    {
+        $userModel = new UserModel();
+        $penggunaModel = new PenggunaModel();
+
+        $users = $userModel->findAll();
+
+        foreach ($users as $user) {
+            $data = [
+                'email' => $user['email'],
+                // 'nama' => $user['name'], // Uncomment if you have name in users table
+                // Add other data if needed
+            ];
+            $penggunaModel->insert($data);
+        }
+
+        // Redirect or set a success message
+        return redirect()->to('/setting');
+    }
+
+
+    // ===========================================
 
     //============Katgeori====================
     public function kategori()
@@ -85,50 +151,65 @@ class UserController extends BaseController
 
     public function addKeranjang()
     {
+        $idProduk = $this->request->getPost('product_id');
+        $hargaBeli = $this->request->getPost('product_price');
 
+        $idPesan = $this->buatAtauDapatkanIdPemesanan();
 
-        $pemesananModel = new PemesananModel();
-        $rincianPemesananModel = new RincianPemesananModel();
-
-        // Buat ID Pemesanan Baru
-        $idPesan = uniqid('pesan_');
-        $dataPemesanan = [
+        $modelRincian = new RincianPemesananModel();
+        $modelRincian->insert([
             'ID_Pesan' => $idPesan,
-        ];
-        $pemesananModel->createPemesanan($dataPemesanan);
+            'ID_Produk' => $idProduk,
+            'Harga_Beli' => $hargaBeli,
+            'Jumlah_Barang' => 1, // asumsi jumlah barang adalah 1
+        ]);
 
-        // Data untuk Rincian Pemesanan
-        $dataRincianPemesanan = [
-            'ID_Pesan' => $idPesan,
-            'ID_Produk' => $this->request->getPost('product_id'),
-            'Harga_Beli' => $this->request->getPost('product_price'),
-            'Jumlah_Barang' => 1, // atau sesuai dengan input user
-        ];
-
-        $rincianPemesananModel->addKeranjang($dataRincianPemesanan);
-
-        return redirect()->to('/keranjang');
+        return redirect()->to('/kategori');
     }
 
-  
+    private function buatAtauDapatkanIdPemesanan()
+    {
+        $session = session();
+        $email = $session->get('email'); // asumsikan user_id tersimpan di sesi
+
+        $modelPemesanan = new PemesananModel();
+
+        // Cek apakah sudah ada pemesanan yang aktif untuk user ini
+        $pemesananAktif = $modelPemesanan->where('email', $email)
+            ->first();
+
+        if ($pemesananAktif) {
+            return $pemesananAktif['ID_Pesan'];
+        } else {
+            // Tidak ada pemesanan aktif, buat pemesanan baru
+            $modelPemesanan->insert([
+                'email' => $email,
+                // tambahkan kolom lain yang diperlukan
+            ]);
+
+            return $modelPemesanan->getInsertID();
+        }
+    }
+
+
 
 
 
     //============End====================
     public function checkout()
     {
-        $data['title']   = 'Checkout';
+        $data['title'] = 'Checkout';
         return view('user/checkoutPengiriman', $data);
     }
 
     public function bayar()
     {
-        $data['title']   = 'Pembayaran';
+        $data['title'] = 'Pembayaran';
         return view('user/checkoutPembayaran', $data);
     }
     public function konfirmasipembayaran()
     {
-        $data['title']   = 'Konfirmasi';
+        $data['title'] = 'Konfirmasi';
         echo view('user/konfirmasipembayaran', $data);
     }
 }

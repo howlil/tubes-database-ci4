@@ -4,11 +4,15 @@ namespace App\Controllers;
 
 use CodeIgniter\Controller;
 use CodeIgniter\Session\Session;
+use Faker\Provider\Base;
 use Myth\Auth\Config\Auth as AuthConfig;
 use Myth\Auth\Entities\User;
 use Myth\Auth\Models\UserModel;
+use App\Models\PenggunaModel;
+use Myth\Auth\Authentication\Passwords\ValidationRules;
 
-class AuthController extends Controller
+
+class AuthController extends BaseController
 {
     protected $auth;
 
@@ -142,14 +146,15 @@ class AuthController extends Controller
         if (!$this->config->allowRegistration) {
             return redirect()->back()->withInput()->with('error', lang('Auth.registerDisabled'));
         }
-
-        $users = model(UserModel::class);
+        $validationConfig = config('Validation');
+        $rules = $validationConfig->registrationRules;
+         $users = model(UserModel::class);
 
         // Validate basics first since some password rules rely on these fields
-        $rules = config('Validation')->registrationRules ?? [
-            'username' => 'required|alpha_numeric_space|min_length[3]|max_length[30]|is_unique[users.username]',
-            'email'    => 'required|valid_email|is_unique[users.email]',
-        ];
+        // $rules = config('Validation')->registrationRules ?? [
+        //     'username' => 'required|alpha_numeric_space|min_length[3]|max_length[30]|is_unique[users.username]',
+        //     'email'    => 'required|valid_email|is_unique[users.email]',
+        // ];
 
         if (!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
@@ -190,6 +195,44 @@ class AuthController extends Controller
 
             // Success!
             return redirect()->route('login')->with('message', lang('Auth.activationSuccess'));
+        }
+
+        if ($this->validate($rules)) {
+            $users = model(UserModel::class);
+
+            // Save the user
+            $user = new User($this->request->getPost([
+                'email', // Assuming email is part of your form data
+                'username',
+                'password' // Make sure to hash this if not done automatically
+            ]));
+
+            // Attempt to save the user in the users table
+            if ($users->save($user)) {
+                // User registration successful
+
+                // Retrieve the newly created user ID
+                $userId = $users->getInsertID();
+
+                // Create a corresponding entry in the pengguna table
+                $penggunaModel = new PenggunaModel();
+                $penggunaData = [
+                    'Email' => $user->email,
+                    'Id' => $userId,
+                    // Set other fields as necessary
+                ];
+
+                // Insert into pengguna table
+                $penggunaModel->insert($penggunaData);
+
+                // ... any additional code such as sending activation email, etc. ...
+            } else {
+                // Handle error, user not saved
+                return redirect()->back()->withInput()->with('errors', $users->errors());
+            }
+        } else {
+            // Validation failed
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
         // Success!

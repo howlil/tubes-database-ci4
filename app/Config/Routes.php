@@ -11,6 +11,17 @@ $reservedRoutes = $config->reservedRoutes;
 
 //============== user ======================
 $routes->get('/', 'UserController::index');
+
+//==============end======================
+
+//============== user ======================
+$routes->get('/setting', 'UserController::setting');
+$routes->post('/update-profile', 'UserController::updateProfile');
+
+
+//==============end======================
+
+
 $routes->get('/checkout/pengiriman', 'UserController::checkout');
 $routes->get('/checkout/pembayaran', 'UserController::bayar');
 

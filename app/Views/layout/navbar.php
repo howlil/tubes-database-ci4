@@ -29,13 +29,11 @@
     <div class="container header">
         <!-- Logo -->
         <a class="navbar-brand align-items-center d-flex" href="/">
-            <img src="https://d8g5mz6srwlcs.cloudfront.net/v3.59.0/images/logo-otten-coffee.png" alt="logo-otten-coffee"
-                width="75">
+            <img src="https://d8g5mz6srwlcs.cloudfront.net/v3.59.0/images/logo-otten-coffee.png" alt="logo-otten-coffee" width="75">
         </a>
 
         <!-- Toggler untuk mobile view -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -50,8 +48,7 @@
 
             <!-- Search Bar -->
             <form class="d-flex flex-grow-1 me-auto">
-                <input class="form-control" type="search" placeholder="Pay Day November Disc 90% + Extra voucher 800rb"
-                    aria-label="Search" style="max-width: 400px;">
+                <input class="form-control" type="search" placeholder="Pay Day November Disc 90% + Extra voucher 800rb" aria-label="Search" style="max-width: 400px;">
             </form>
 
             <!-- Navbar icons -->
@@ -92,28 +89,26 @@
                     <div class="cart-summary position-absolute">
                         <div class="d-flex flex-column align-items-start p-3 bg-white border rounded">
                             <?php if (!empty($produkcart)) : ?>
-                            <h6 class="text-dark fw-bold mb-1">Subtotal: <span id="subtotalCart"></span></h6>
-                            <hr>
-                            <?php foreach ($produkcart as $produk) : ?>
-                            <div class="product-in-cart d-flex gap-2 mb-2">
-                                <img src="<?= $produk['Gambar']; ?>" alt="<?= $produk['Nama_Barang']; ?>"
-                                    style="width: 50px; height: 50px;">
-                                <div>
-                                    <p><?= $produk['Nama_Barang']; ?></p>
-                                    <p>Rp <?= number_format($produk['Harga_Beli'], 2, ',', '.'); ?> x
-                                        <?= $produk['Jumlah_Barang']; ?></p>
-                                </div>
-                                <div class="ms-auto">
-                                    <a href="<?= base_url('/hapus-dari-keranjang/' . $produk['ID']); ?>"
-                                        class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                </div>
-                            </div>
-                            <?php endforeach; ?>
-                            <button class="btn btn-success d-grid col-12 mx-auto mt-2">
-                                <a class="text-decoration-none text-white" href="/keranjang">Lihat Keranjang</a>
-                            </button>
+                                <h6 class="text-dark fw-bold mb-1">Subtotal: <span id="subtotalCart"></span></h6>
+                                <hr>
+                                <?php foreach ($produkcart as $produk) : ?>
+                                    <div class="product-in-cart d-flex gap-2 mb-2">
+                                        <img src="<?= $produk['Gambar']; ?>" alt="<?= $produk['Nama_Barang']; ?>" style="width: 50px; height: 50px;">
+                                        <div>
+                                            <p><?= $produk['Nama_Barang']; ?></p>
+                                            <p>Rp <?= number_format($produk['Harga_Beli'], 2, ',', '.'); ?> x
+                                                <?= $produk['Jumlah_Barang']; ?></p>
+                                        </div>
+                                        <div class="ms-auto">
+                                            <a href="<?= base_url('/hapus-dari-keranjang/' . $produk['ID']); ?>" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                                <button class="btn btn-success d-grid col-12 mx-auto mt-2">
+                                    <a class="text-decoration-none text-white" href="/keranjang">Lihat Keranjang</a>
+                                </button>
                             <?php else : ?>
-                            <p>Keranjang kosong</p>
+                                <p>Keranjang kosong</p>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -122,47 +117,42 @@
                 </li>
 
                 <?php if (logged_in()) : ?>
-                <li class="nav-item dropdown no-arrow ms-5" id="userDropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <img src="https://d8g5mz6srwlcs.cloudfront.net/v3.59.0/images/default-profile.png"
-                            alt="Image default profile" class="rounded-circle" style="width: 32px;">
-                    </a>
-                    <!-- Dropdown - User Information -->
-                    <?php if (in_groups('admin')) : ?>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                        aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="<?= base_url('/dashboard') ?>">
-                            <i class="fas fa-cog fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Kelola Web
+                    <li class="nav-item dropdown no-arrow ms-5" id="userDropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="https://d8g5mz6srwlcs.cloudfront.net/v3.59.0/images/default-profile.png" alt="Image default profile" class="rounded-circle" style="width: 32px;">
                         </a>
+                        <!-- Dropdown - User Information -->
+                        <?php if (in_groups('admin')) : ?>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="<?= base_url('/dashboard') ?>">
+                                    <i class="fas fa-cog fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Kelola Web
+                                </a>
 
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="<?= base_url('/logout') ?>">
-                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Logout
-                        </a>
-                    </div>
-                    <?php else : ?>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                        aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="<?= base_url('/settings') ?>">
-                            <i class="fas fa-cog fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Setting Akun
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="<?= base_url('/logout') ?>">
-                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Logout
-                        </a>
-                    </div>
-                    <?php endif; ?>
-                </li>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="<?= base_url('/logout') ?>">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        <?php else : ?>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="<?= base_url('/setting') ?>">
+                                    <i class="fas fa-cog fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Setting Akun
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="<?= base_url('/logout') ?>">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        <?php endif; ?>
+                    </li>
                 <?php else : ?>
-                <li class="nav-item ms-5">
-                    <a style="background-color: #6dbf67;" class="btn text-white fw-boldp "
-                        href="<?= base_url('/login') ?>">Login</a>
-                </li>
+                    <li class="nav-item ms-5">
+                        <a style="background-color: #6dbf67;" class="btn text-white fw-boldp " href="<?= base_url('/login') ?>">Login</a>
+                    </li>
                 <?php endif; ?>
 
             </ul>
@@ -175,26 +165,25 @@
 
                     <ul class="category-list">
                         <?php foreach ($kategori as $kat) : ?>
-                        <li class="category-item" data-kategori="<?= $kat['ID_Kategori']; ?>">
-                            <a href="<?= base_url('/kategori')?>">
-                                <h5><?= htmlspecialchars($kat['Nama']); ?></h5>
-                            </a>
-                        </li>
+                            <li class="category-item" data-kategori="<?= $kat['ID_Kategori']; ?>">
+                                <a href="<?= base_url('/kategori') ?>">
+                                    <h5><?= htmlspecialchars($kat['Nama']); ?></h5>
+                                </a>
+                            </li>
                         <?php endforeach; ?>
                     </ul>
 
 
                     <div class=" product-display">
                         <?php foreach ($subkategori as $subkat) : ?>
-                        <div class="product-category " data-kategori="<?= $subkat['ID_Kategori']; ?>">
+                            <div class="product-category " data-kategori="<?= $subkat['ID_Kategori']; ?>">
 
-                            <a class="text-secondary d-flex gap-3 align-items-centern py-2 px-3 "
-                                href="<?= base_url('/kategori')?>">
-                                <i class="fas fa-coffee"></i>
-                                <h6 class="p-0 m-0"><?= $subkat['Nama']; ?></h6>
-                            </a>
+                                <a class="text-secondary d-flex gap-3 align-items-centern py-2 px-3 " href="<?= base_url('/kategori') ?>">
+                                    <i class="fas fa-coffee"></i>
+                                    <h6 class="p-0 m-0"><?= $subkat['Nama']; ?></h6>
+                                </a>
 
-                        </div>
+                            </div>
                         <?php endforeach; ?>
                     </div>
 
@@ -204,14 +193,14 @@
     </div>
 
     <script>
-    let subtotal = 0;
-    document.querySelectorAll('.product-in-cart').forEach((product) => {
-        const price = parseFloat(product.querySelector('.product-price').textContent.replace('Rp ', '').replace(
-            ',', '.'));
-        const quantity = parseInt(product.querySelector('.quantity-input').value);
-        subtotal += price * quantity;
-    });
-    document.getElementById('subtotalCart').textContent = `Rp ${subtotal.toFixed(2).replace('.', ',')}`;
+        let subtotal = 0;
+        document.querySelectorAll('.product-in-cart').forEach((product) => {
+            const price = parseFloat(product.querySelector('.product-price').textContent.replace('Rp ', '').replace(
+                ',', '.'));
+            const quantity = parseInt(product.querySelector('.quantity-input').value);
+            subtotal += price * quantity;
+        });
+        document.getElementById('subtotalCart').textContent = `Rp ${subtotal.toFixed(2).replace('.', ',')}`;
     </script>
 
 
