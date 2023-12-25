@@ -17,6 +17,7 @@ $routes->get('/', 'UserController::index');
 //============== user ======================
 $routes->get('/setting', 'UserController::setting');
 $routes->post('/update-profile', 'UserController::updateProfile');
+$routes->post('/transfer', 'UserController::transferEmail');
 
 
 //==============end======================

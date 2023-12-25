@@ -60,22 +60,11 @@ class UserController extends BaseController
     // =============setting=====================
     public function setting()
     {
-        $session = session();
-        $userId = $session->get('userId');
-        $userModel = new UserModel();
-        $penggunaModel = new PenggunaModel();
-
-        $user = $userModel->find($userId);
-        if (!$user) {
-            // Handle user not found
-        }
-
-        $email = $user['email'];
-        $penggunaData = $penggunaModel->where('Email', $email)->first();
+   
 
         $data = [
             'title' => 'Profile Setting',
-            'userData' => $penggunaData,
+            
         ];
 
         return view('user/profile', $data);
@@ -111,8 +100,6 @@ class UserController extends BaseController
         foreach ($users as $user) {
             $data = [
                 'email' => $user['email'],
-                // 'nama' => $user['name'], // Uncomment if you have name in users table
-                // Add other data if needed
             ];
             $penggunaModel->insert($data);
         }

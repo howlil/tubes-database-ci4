@@ -13,6 +13,7 @@ return [
     'unknownError'        => 'Sorry, we encountered an issue sending the email to you. Please try again later.',
     'notLoggedIn'         => 'You must be logged in to access that page.',
     'notEnoughPrivilege'  => 'You do not have sufficient permissions to access that page.',
+    'Auth.syncData' => 'Sync my data at login',
 
     // Registration
     'registerDisabled' => 'Sorry, new user accounts are not allowed at this time.',

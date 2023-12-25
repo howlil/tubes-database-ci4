@@ -8,7 +8,7 @@ class PenggunaModel extends Model
 {
     protected $table = 'pengguna';
     protected $primaryKey = 'Email';
-    protected $allowedFields = ['Email', 'Id', 'Alamat', 'Nama', 'Saldo_Point'];
+    protected $allowedFields = ['Email', 'Alamat', 'Nama', 'Saldo_Point'];
     protected $returnType = 'array';
     protected $useTimestamps = false;
 

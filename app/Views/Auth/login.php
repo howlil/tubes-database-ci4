@@ -56,6 +56,11 @@
                         </div>
                         <?php endif; ?>
 
+                        <!-- <div class="form-check">
+                            <input type="checkbox" name="sync_data" class="form-check-input" id="sync_data">
+                            <label class="form-check-label" for="sync_data"><?= lang('Auth.syncData') ?></label>
+                        </div> -->
+
                         <br>
 
                         <button type="submit" class="btn btn-success btn-block"><?= lang('Auth.loginAction') ?></button>
